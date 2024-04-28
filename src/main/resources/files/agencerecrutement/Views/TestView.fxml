@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="350.0" prefWidth="562.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="files.agencerecrutement.Controller.TestController">
+   <children>
+      <Button layoutX="241.0" layoutY="280.0" mnemonicParsing="false" onAction="#testMethode" prefHeight="40.0" prefWidth="82.0" text="Test" />
+      <TextArea fx:id="result" layoutX="19.0" layoutY="63.0" prefHeight="200.0" prefWidth="525.0" promptText="result" />
+      <Label layoutX="28.0" layoutY="22.0" text="Result:" />
+   </children>
+</AnchorPane>
