@@ -12,7 +12,7 @@ public class TestController {
     public  void testMethode(){
         try{
             Utilitaire.getConnection();
-            showAlert("hhhhhhhhhhhhhhhhh");
+            showAlert("ok");
             //result.setText("ddd");
         }catch (Exception ex){
             showAlert("exception :"+ex.getMessage());
