@@ -14,7 +14,7 @@ public class MainApp extends Application {
 
         FXMLLoader fxmlLoader = new FXMLLoader( MainApp.class.getResource("Views/TestView.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 550, 400);
-        primaryStage.setTitle("Hello world wowowowwowo!");
+        primaryStage.setTitle("Hello world left!");
         primaryStage.setScene(scene);
         primaryStage.show();
         //commment
