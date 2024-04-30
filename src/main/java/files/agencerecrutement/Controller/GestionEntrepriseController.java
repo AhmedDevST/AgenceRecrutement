@@ -14,6 +14,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 
+import java.util.Objects;
+
 
 public class GestionEntrepriseController {
 
@@ -72,7 +74,7 @@ public class GestionEntrepriseController {
                         }else{
 
                             //icon modifier entreprise
-                            final Image imageEdit = new Image(getClass().getResource("/files/agencerecrutement/Images/editIcon.png").toString());
+                            final Image imageEdit = new Image(Objects.requireNonNull(getClass().getResource("/files/agencerecrutement/Images/editIcon.png")).toString());
                             final ImageView editEstViewImg = new ImageView(imageEdit);
                             //style
                             editEstViewImg.setFitWidth(30);
@@ -88,7 +90,7 @@ public class GestionEntrepriseController {
                             } );
 
                             // icon afficher les offres de est
-                            final Image imageOffres = new Image(getClass().getResource("/files/agencerecrutement/Images/afficherOffres.png").toString());
+                            final Image imageOffres = new Image(Objects.requireNonNull(getClass().getResource("/files/agencerecrutement/Images/afficherOffres.png")).toString());
                             final ImageView OffresViewImg = new ImageView(imageOffres);
                             //style
                             OffresViewImg.setFitWidth(30);
@@ -104,7 +106,7 @@ public class GestionEntrepriseController {
                             } );
 
                             //icon afficher les abonnement de est
-                            final Image imageAbo = new Image(getClass().getResource("/files/agencerecrutement/Images/afficherAbo.png").toString());
+                            final Image imageAbo = new Image(Objects.requireNonNull(getClass().getResource("/files/agencerecrutement/Images/afficherAbo.png")).toString());
                             final ImageView AboEstViewImg = new ImageView(imageAbo);
                             //style
                             AboEstViewImg.setFitWidth(30);
