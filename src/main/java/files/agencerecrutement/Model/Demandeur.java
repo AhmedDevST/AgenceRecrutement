@@ -1,6 +1,7 @@
 package files.agencerecrutement.Model;
 
-public class Demandeur extends  Client{
+public class Demandeur extends Client {
+
     private String nom ;
     private  String prenom;
     private  String fax;

@@ -3,6 +3,8 @@ import  files.agencerecrutement.DAO.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class TestController {
 
@@ -11,9 +13,11 @@ public class TestController {
 
     public  void testMethode(){
         try{
-            Utilitaire.getConnection();
-            showAlert("ok");
+           // Utilitaire.getConnection();
+           // showAlert("ok");
             //result.setText("ddd");
+           Image image = new Image(getClass().getResource("/files/agencerecrutement/Images/editIcon.png").toString());
+           ImageView imageView = new ImageView(image);
         }catch (Exception ex){
             showAlert("exception :"+ex.getMessage());
 
