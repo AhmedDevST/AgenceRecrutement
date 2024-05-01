@@ -4,14 +4,46 @@ import files.agencerecrutement.Model.Entreprise;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class EntrepriseDAO {
     //ajouterEntreprise
+
+    public static  void AjouterEntreprise(Entreprise entreprise) throws SQLException {
+        Connection con = Utilitaire.getConnection();
+        PreparedStatement pst = con.prepareStatement(
+                "INSERT INTO entreprise (CodeInterneEs, Adresse, Telephone, RaisonSocial, Activité)" +
+                        " VALUES (NULL, ?, ?, ?, ?);");
+        //set les parametres
+        pst.setString(1,entreprise.getAdresse());
+        pst.setString(2,entreprise.getPhone());
+        pst.setString(3,entreprise.getRaisonSocial());
+        pst.setString(4,entreprise.getActivites());
+        //excuter
+        pst.executeUpdate();
+        //fermer
+        pst.close();
+        con.close();
+    }
+
     //modifierEntreprise
+    public  static  void ModifierEntreprise(Entreprise entreprise) throws SQLException {
+        Connection con = Utilitaire.getConnection();
+        PreparedStatement pst = con.prepareStatement("UPDATE entreprise SET " +
+                " Adresse = ?, Telephone = ?, RaisonSocial = ?, Activité = ?" +
+                " WHERE CodeInterneEs =  ?;");
+        //set les parametres
+        pst.setString(1,entreprise.getAdresse());
+        pst.setString(2,entreprise.getPhone());
+        pst.setString(3,entreprise.getRaisonSocial());
+        pst.setString(4,entreprise.getActivites());
+        pst.setInt(5,entreprise.getIdClient());
+        //excuter
+        pst.executeUpdate();
+        //fermer
+        pst.close();
+        con.close();
+    }
     //select Entreprise
 
 

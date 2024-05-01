@@ -5,13 +5,18 @@ import files.agencerecrutement.Model.Entreprise;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.util.Objects;
@@ -19,7 +24,7 @@ import java.util.Objects;
 
 public class GestionEntrepriseController {
 
-    private  ObservableList<Entreprise> entreprises;
+    private  ObservableList<Entreprise> entreprises = FXCollections.observableArrayList();
     @FXML
     private TableView<Entreprise> DataEntreprises ;
     @FXML
@@ -37,23 +42,25 @@ public class GestionEntrepriseController {
     @FXML
     private TextField SearchText;
 
-    public GestionEntrepriseController(){
-        try{
-            entreprises = EntrepriseDAO.afficherEntreprises();
-        }catch (Exception ex){
-            showAlert(ex.getMessage());
-        }
-    }
     @FXML
     public  void initialize(){
         try{
-            loadData();
+            loadTableView();
         }catch (Exception ex){
-            showAlert(ex.getMessage());
+            showAlertWarnning(ex.getMessage());
         }
     }
     private void loadData(){
+        try{
+            //get la list des entreprises  a partir de base de donnne
+            entreprises = EntrepriseDAO.afficherEntreprises();
+        }catch (Exception ex){
+            showAlertWarnning(ex.getMessage());
+        }
+    }
+    private void loadTableView(){
 
+        loadData();
         //utiliser  dans PropertyValueFactory  la meme nom de attribut au objet entreprise
         CodeInterne.setCellValueFactory(new PropertyValueFactory<>("IdClient"));
         RaisonSocialEst.setCellValueFactory(new PropertyValueFactory<>("raisonSocial"));
@@ -83,10 +90,12 @@ public class GestionEntrepriseController {
                             Tooltip tooltipEdit = new Tooltip("Modifier l entreprise");
                             Tooltip.install(editEstViewImg,tooltipEdit);
 
-                             //event
+                             //event sur icon modifier
                             editEstViewImg.setOnMouseClicked(actionEvent -> {
+                                //get entreprise selectionner dans tableview
                                 Entreprise entreprise = getTableView().getItems().get(getIndex());
-                                showAlert( "Modifier entreprise : "+entreprise.getRaisonSocial());
+                                //ouvrir fenetre de modifier entreprise
+                                OuvrirModifierEntreprise(entreprise);
                             } );
 
                             // icon afficher les offres de est
@@ -102,7 +111,7 @@ public class GestionEntrepriseController {
                             //event
                             OffresViewImg.setOnMouseClicked(actionEvent -> {
                                 Entreprise entreprise = getTableView().getItems().get(getIndex());
-                                showAlert("les offres de entrprise :"+entreprise.getRaisonSocial());
+                                showAlertInfo("les offres de entrprise :"+entreprise.getRaisonSocial());
                             } );
 
                             //icon afficher les abonnement de est
@@ -118,9 +127,10 @@ public class GestionEntrepriseController {
                              //event
                             AboEstViewImg.setOnMouseClicked(actionEvent -> {
                                 Entreprise entreprise = getTableView().getItems().get(getIndex());
-                                showAlert("les abonnement de entreprise :"+entreprise.getRaisonSocial());
+                                showAlertInfo("les abonnement de entreprise :"+entreprise.getRaisonSocial());
                             } );
 
+                            //met les trois icon dans un Hbox
                             HBox ContentAllbtn = new HBox(editEstViewImg,OffresViewImg,AboEstViewImg);
                             ContentAllbtn.setStyle("-fx-alignment:center");
                             HBox.setMargin(editEstViewImg, new Insets(2, 7, 7, 3));
@@ -146,13 +156,15 @@ public class GestionEntrepriseController {
 
 
 
-    //event text change sur textField de recherche
+    //event  sur textField de recherche:touche entrer
    @FXML
     private void searchEst(){
         try{
             if(!SearchText.getText().isEmpty()){
+                //cree une autre list =>va contient result de rechreche
                 ObservableList<Entreprise> filteredList = FXCollections.observableArrayList();
                 for(Entreprise  entreprise : entreprises){
+                    //si le raison social,address,phone d  un entreprise  similaire de mot cle on la ajouter
                     if( entreprise.getRaisonSocial().toLowerCase().contains(SearchText.getText().toLowerCase()) ||
                             entreprise.getAdresse().toLowerCase().contains(SearchText.getText().toLowerCase())||
                         entreprise.getPhone().toLowerCase().contains(SearchText.getText().toLowerCase())
@@ -161,14 +173,78 @@ public class GestionEntrepriseController {
                 }
                 DataEntreprises.setItems(filteredList);
             }else{
-                loadData();
+                //si input de recherche vide on refrech la tableView
+                loadTableView();
             }
         }catch (Exception ex){
-            showAlert(ex.getMessage());
+            showAlertWarnning(ex.getMessage());
         }
     }
 
-    public void showAlert(String message) {
+    //event de button Nouvelle entreprise : permet de ouvrir la fenetre d ajouter une entreprise
+    @FXML
+    private void AjouterEntrepiseEvent(){
+        try{
+            Parent parent = FXMLLoader.load(getClass().getResource("/files/agencerecrutement/Views/AjouterEntreprise.fxml"));
+            Stage stage = new Stage();
+            stage.setScene(new Scene(parent));
+            stage.setTitle("Nouvelle Entreprise ");
+            stage.centerOnScreen();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setResizable(false);
+
+            // Wait for the new window to be closed
+            stage.setOnHiding(event -> {
+                // Reload TableView data after closing the "Ajouter Entreprise" window
+                loadTableView();
+            });
+
+            stage.showAndWait(); // Use showAndWait() to wait for the window to close before continuing
+
+        }catch (Exception ex){
+            showAlertWarnning(ex.getMessage());
+        }
+    }
+
+    //methode permet de ouvrir le fenetre de modification d un entreprise passer comme argument
+    private  void OuvrirModifierEntreprise(Entreprise entreprise){
+        try{
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/files/agencerecrutement/Views/ModifierEntreprise.fxml"));
+            Parent parent = fxmlLoader.load();
+
+            //cree instance de controller ModifierEntrepriseController
+            ModifierEntrepriseController modifierEntrepriseController = fxmlLoader.getController();
+            //passer au controller  l objet entreprise
+            modifierEntrepriseController.initData(entreprise);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(parent));
+            stage.setTitle("Modifier Entreprise ");
+            stage.centerOnScreen();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setResizable(false);
+
+            // Wait for the new window to be closed
+            stage.setOnHiding(event -> {
+                // Reload TableView data after closing the "modifier Entreprise" window
+                loadTableView();
+            });
+
+            stage.showAndWait(); // Use showAndWait() to wait for the window to close before continuing
+
+        }catch(Exception ex){
+            showAlertWarnning(ex.getMessage());
+        }
+    }
+    public void showAlertWarnning(String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("title");
+        alert.setHeaderText("Look, an Information Dialog");
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+    public void showAlertInfo(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("title");
         alert.setHeaderText("Look, an Information Dialog");

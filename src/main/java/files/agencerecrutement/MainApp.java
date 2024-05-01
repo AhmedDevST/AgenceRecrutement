@@ -12,7 +12,7 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
 
-        FXMLLoader fxmlLoader = new FXMLLoader( MainApp.class.getResource("Views/GestionEntreprise.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader( MainApp.class.getResource("Views/GestionCategorie.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 900, 500);
         primaryStage.setTitle("Hello world!");
         primaryStage.setScene(scene);

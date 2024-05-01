@@ -7,6 +7,7 @@ public class Entreprise extends  Client{
     private String Activites ;
     private ArrayList<Offre> Offres;
 
+
     public Entreprise(int idClient, String adresse, String phone, String raisonSocial, String activites) {
         super(idClient, adresse, phone);
         this.raisonSocial = raisonSocial;

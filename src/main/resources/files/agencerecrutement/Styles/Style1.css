@@ -25,24 +25,41 @@
 
  }
  .primary-button {
-     -fx-background-color: #007bff; /* Couleur de fond */
+     -fx-background-color: #004BFF; /* Couleur de fond */
      -fx-text-fill: white; /* Couleur du texte */
      -fx-font-size: 14px; /* Taille de la police */
      -fx-font-weight: 700; /* Poids de la police */
      -fx-padding: 8px 16px; /* Rembourrage du bouton */
-     -fx-border-radius: 7px; /* Rayon du coin */
+     -fx-border-radius: 10px; /* Rayon du coin */
       -fx-font-family: "New Times";
-
  }
 
  .primary-button:hover {
-     -fx-background-color: #0056b3; /* Couleur de fond au survol */
+     -fx-background-color: #263FAA; /* Couleur de fond au survol */
  }
 
  .primary-button:pressed {
      -fx-background-color: #003c80; /* Couleur de fond lorsqu'appuyé */
  }
-.custom-textfield {
+
+ .danger-button {
+      -fx-background-color: #FF4136; /* Couleur de fond */
+      -fx-text-fill: white; /* Couleur du texte */
+      -fx-font-size: 14px; /* Taille de la police */
+      -fx-font-weight: 700; /* Poids de la police */
+      -fx-padding: 8px 16px; /* Rembourrage du bouton */
+      -fx-border-radius: 7px; /* Rayon du coin */
+       -fx-font-family: "New Times";
+  }
+
+  .danger-button:hover {
+      -fx-background-color: #FF7F70; /* Couleur de fond au survol */
+  }
+
+  .danger-button:pressed {
+      -fx-background-color: #B10F00; /* Couleur de fond lorsqu'appuyé */
+  }
+.textfieldSearch {
     -fx-background-color: #f8f9fa; /* Couleur de fond */
     -fx-border-color: #ced4da; /* Couleur de bordure */
     -fx-border-width: 1px; /* Largeur de la bordure */
@@ -50,10 +67,50 @@
     -fx-prompt-text-fill: #6c757d; /* Couleur du texte d'invite */
 }
 
-.custom-textfield:hover {
+.textfieldSearch:hover {
     -fx-border-color: #a1a1a1; /* Couleur de bordure au survol */
 }
 
-.custom-textfield:focused {
+.textfieldSearch:focused {
     -fx-border-color: #007bff; /* Couleur de bordure lorsque le champ est en focus */
 }
+.labelTitre {
+     -fx-font-size: 20px;
+    -fx-font-family: "Arial";
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333 /* Couleur grise pour le texte */
+    -fx-background-color: transparent;
+}
+.labelTitre:hover {
+    -fx-text-fill: #666666; /* Couleur de texte plus foncée au survol */
+}
+.labelForm {
+    -fx-font-size: 14px;
+    -fx-font-family: "New Times";
+    -fx-font-weight: 400;
+    -fx-text-fill: #333333; /* Couleur du texte */
+    -fx-padding: 5px; /* Remplissage autour du texte */
+    -fx-margin-bottom: 5px; /* Marge inférieure pour l'espace */
+}
+.labelForm:hover{
+    -fx-text-fill: #666666; /* Couleur du texte */
+}
+
+.textFieldForm {
+    -fx-font-size: 14px;
+    -fx-font-family: "New Times";
+    -fx-padding: 8px; /* Remplissage autour du champ */
+    -fx-border-color: #0666664; /* Couleur de la bordure */
+     -fx-border-color: #ced4da; /* Couleur de bordure */
+     -fx-border-width: 1px; /* Largeur de la bordure */
+     -fx-border-radius: 4px; /* Rayon du coin */
+     -fx-prompt-text-fill: #6c757d; /* Couleur du texte d'invite */
+}
+.textFieldForm:focused {
+    -fx-border-color: #a1a1a1; /* Couleur de bordure au survol */
+}
+
+
+
+
+
