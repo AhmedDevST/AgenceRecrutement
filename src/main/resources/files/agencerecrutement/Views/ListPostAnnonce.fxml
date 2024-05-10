@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="334.0" prefWidth="586.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane prefHeight="334.0" prefWidth="587.0">
+         <children>
+            <Label layoutX="201.0" layoutY="21.0" text="Liste de postulants">
+               <font>
+                  <Font name="Times New Roman Bold" size="23.0" />
+               </font>
+            </Label>
+            <TableView layoutX="84.0" layoutY="67.0" prefHeight="212.0" prefWidth="419.0">
+              <columns>
+                <TableColumn prefWidth="88.0" text="ID" />
+                <TableColumn prefWidth="111.0" text="Annonce" />
+                  <TableColumn prefWidth="108.0" text="Nom" />
+                  <TableColumn prefWidth="111.0" text="Prenom" />
+              </columns>
+            </TableView>
+            <Button layoutX="503.0" layoutY="295.0" mnemonicParsing="false" text="Annuler" />
+         </children>
+      </AnchorPane>
+   </children>
+</HBox>

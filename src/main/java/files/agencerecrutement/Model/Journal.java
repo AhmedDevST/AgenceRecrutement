@@ -15,6 +15,8 @@ public class Journal {
         this.categorie = categorie;
     }
 
+
+
     public int getIdJr() {
         return idJr;
     }

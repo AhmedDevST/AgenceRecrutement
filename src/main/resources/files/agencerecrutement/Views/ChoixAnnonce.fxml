@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="474.0" prefWidth="486.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane prefHeight="474.0" prefWidth="481.0">
+         <children>
+            <Label layoutX="35.0" layoutY="29.0" text="Entrer les information suivantes :">
+               <font>
+                  <Font name="Times New Roman" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="70.0" text="Numéro d'édition :">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="22.0" layoutY="105.0" text="Date de parution :">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+
+            <TableView layoutX="5.0" layoutY="191.0" prefHeight="200.0" prefWidth="469.0">
+              <columns>
+                <TableColumn prefWidth="75.0" text="Annonce" />
+                <TableColumn prefWidth="75.0" text="Offre" />
+                 <TableColumn prefWidth="112.0" text="numéro d'édition" />
+                 <TableColumn prefWidth="101.0" text="Date de parution" />
+                 <TableColumn prefWidth="105.0" text="Postuler" />
+              </columns>
+            </TableView>
+            <Button layoutX="392.0" layoutY="429.0" mnemonicParsing="false" text="Annuler" />
+            <ComboBox layoutX="153.0" layoutY="68.0" prefWidth="150.0" />
+            <DatePicker layoutX="154.0" layoutY="103.0" />
+            <Label layoutX="52.0" layoutY="139.0" text="Demandeur : ">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <ComboBox layoutX="153.0" layoutY="137.0" prefWidth="150.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</HBox>

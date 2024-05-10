@@ -4,7 +4,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Utilitaire {
-   private static final String URL = "jdbc:mysql://localhost:3306/TP6";
+   private static final String URL = "jdbc:mysql://localhost:3306/agencerecrutement";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "";
 

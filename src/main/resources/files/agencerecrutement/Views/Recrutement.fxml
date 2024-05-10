@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="439.0" prefWidth="673.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane prefHeight="439.0" prefWidth="697.0">
+         <children>
+            <Label layoutX="26.0" layoutY="30.0" text="Recrutement">
+               <font>
+                  <Font name="Times New Roman Bold" size="35.0" />
+               </font>
+            </Label>
+            <Button layoutX="505.0" layoutY="37.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="131.0" text=" + Recruter">
+               <font>
+                  <Font name="Gill Sans Ultra Bold" size="15.0" />
+               </font></Button>
+            <TableView layoutX="48.0" layoutY="133.0" prefHeight="200.0" prefWidth="555.0">
+              <columns>
+                <TableColumn prefWidth="151.0" text="Nom" />
+                <TableColumn prefWidth="127.0" text="Prenom" />
+                  <TableColumn prefWidth="136.0" text="Offre" />
+                  <TableColumn prefWidth="140.0" text="Entreprise" />
+              </columns>
+            </TableView>
+            <Button layoutX="561.0" layoutY="385.0" mnemonicParsing="false" text="Annuler" />
+         </children>
+      </AnchorPane>
+   </children>
+</HBox>

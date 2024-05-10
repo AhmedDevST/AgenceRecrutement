@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="260.0" prefWidth="590.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane prefHeight="260.0" prefWidth="590.0">
+         <children>
+            <Label layoutX="137.0" layoutY="14.0" text="Ajouter un abonnement">
+               <font>
+                  <Font name="Times New Roman Bold" size="31.0" />
+               </font>
+            </Label>
+            <Label layoutX="15.0" layoutY="69.0" prefHeight="35.0" prefWidth="165.0" text="Journal                :">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="abonjr" layoutX="186.0" layoutY="74.0" prefHeight="25.0" prefWidth="128.0" />
+            <Label layoutX="17.0" layoutY="117.0" text="Entreprise            :">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="abones" layoutX="186.0" layoutY="118.0" prefHeight="25.0" prefWidth="128.0" />
+            <Label layoutX="17.0" layoutY="157.0" text="Date d'expiration :">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="abondate" layoutX="186.0" layoutY="158.0" />
+            <Label layoutX="15.0" layoutY="195.0" prefHeight="27.0" prefWidth="174.0" text="Etat                      :">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Button layoutX="373.0" layoutY="210.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="67.0" text="Annuler" />
+            <Button layoutX="468.0" layoutY="210.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="74.0" text="Enregistrer" />
+            <ToggleButton layoutX="189.0" layoutY="196.0" mnemonicParsing="false" text="Activation" />
+         </children></AnchorPane>
+   </children>
+</HBox>

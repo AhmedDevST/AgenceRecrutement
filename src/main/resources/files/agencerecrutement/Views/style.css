@@ -1,0 +1,41 @@
+.New{
+    -fx-background-color: blue; /* Green */
+        -fx-border-color: transparent;
+        -fx-text-fill: white;
+        -fx-padding: 15px 32px;
+        -fx-alignment: center;
+        -fx-font-size: 10px;
+
+}
+
+
+/* Styling for the TableView */
+.tableV {
+    -fx-background-color: #f4f4f4;
+}
+
+/* Styling for the table header */
+.tableV.column-header-background {
+    -fx-background-color: #dcdcdc;
+}
+
+/* Styling for the table cells */
+.tableV-row-cell {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #000000;
+}
+
+/* Styling for alternating rows */
+.tableV-row-cell:odd {
+    -fx-background-color: #f0f0f0;
+}
+
+/* Styling for selected rows */
+.tableV-row-cell:selected {
+    -fx-background-color: #8db6cd; /* Change this color as per your preference */
+}
+
+/* Styling for hover effect */
+.table-row-cell:hover {
+    -fx-background-color: #e6e6e6;
+}

@@ -21,4 +21,7 @@ public class Offre {
         this.entreprise = entreprise;
     }
 
+    public int getIdOffre() {
+        return idOffre;
+    }
 }

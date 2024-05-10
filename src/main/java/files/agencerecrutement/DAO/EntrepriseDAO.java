@@ -1,8 +1,12 @@
 package files.agencerecrutement.DAO;
 
+import files.agencerecrutement.Model.Entreprise;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class EntrepriseDAO {
-    //ajouterEntreprise
-    //modifierEntreprise
-    //select Entreprise
-    //list des Entreprise
-}
+
+
+    }

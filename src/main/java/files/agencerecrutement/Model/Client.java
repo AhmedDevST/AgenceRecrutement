@@ -13,4 +13,12 @@ public class Client {
         Adresse = adresse;
         this.phone = phone;
     }
+
+
+    public Client(int idClient){
+        IdClient = idClient;
+    }
+    public int getIdClient(){
+        return IdClient;
+    }
 }

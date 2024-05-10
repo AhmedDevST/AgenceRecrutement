@@ -1,5 +1,6 @@
 package files.agencerecrutement.Model;
 
+
 public class Recrutement {
     private Demandeur demandeur;
     private Offre offre;

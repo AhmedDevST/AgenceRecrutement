@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="417.0" prefWidth="644.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane prefHeight="417.0" prefWidth="698.0">
+         <children>
+            <Label layoutX="26.0" layoutY="26.0" text="Postulation ">
+               <font>
+                  <Font name="Times New Roman Bold" size="30.0" />
+               </font>
+            </Label>
+            <Label layoutX="204.0" layoutY="35.0" text="Search :" />
+            <TextField layoutX="248.0" layoutY="31.0" prefHeight="25.0" prefWidth="191.0" />
+            <Button layoutX="497.0" layoutY="31.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="96.0" text="+ Postuler">
+               <font>
+                  <Font name="Times New Roman Bold" size="16.0" />
+               </font>
+            </Button>
+            <TableView layoutX="79.0" layoutY="128.0" prefHeight="200.0" prefWidth="496.0">
+              <columns>
+                <TableColumn prefWidth="86.0" text="Annonce" />
+                  <TableColumn prefWidth="100.0" text="Nom" />
+                  <TableColumn prefWidth="212.0" text="Prenom" />
+                  <TableColumn prefWidth="97.0" text="Recrutement" />
+              </columns>
+            </TableView>
+            <Button layoutX="560.0" layoutY="369.0" mnemonicParsing="false" text="Annuler" />
+         </children>
+      </AnchorPane>
+   </children>
+</HBox>
