@@ -1,11 +1,14 @@
 package files.agencerecrutement.Model;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 public class Edition {
     private int numSequentiel;
-    private String dateParution;
+    private Date dateParution;
     private  Journal journal;
 
-    public Edition(int numSequentiel, String dateParution, Journal journal) {
+    public Edition(int numSequentiel, Date dateParution, Journal journal) {
         this.numSequentiel = numSequentiel;
         this.dateParution = dateParution;
         this.journal = journal;
@@ -15,7 +18,7 @@ public class Edition {
         return numSequentiel;
     }
 
-    public String getDateParution() {
+    public Date getDateParution() {
         return dateParution;
     }
 
@@ -27,11 +30,16 @@ public class Edition {
         this.numSequentiel = numSequentiel;
     }
 
-    public void setDateParution(String dateParution) {
+    public void setDateParution(Date dateParution) {
         this.dateParution = dateParution;
     }
 
     public void setJournal(Journal journal) {
         this.journal = journal;
+    }
+
+    @Override
+    public String toString() {
+        return  numSequentiel +" / " + dateParution ;
     }
 }

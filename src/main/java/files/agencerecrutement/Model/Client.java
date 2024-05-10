@@ -14,11 +14,31 @@ public class Client {
         this.phone = phone;
     }
 
-
-    public Client(int idClient){
+    public Client(int idClient) {
         IdClient = idClient;
     }
-    public int getIdClient(){
+
+    public int getIdClient() {
         return IdClient;
+    }
+
+    public String getAdresse() {
+        return Adresse;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setIdClient(int idClient) {
+        IdClient = idClient;
+    }
+
+    public void setAdresse(String adresse) {
+        Adresse = adresse;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="530.0" prefWidth="840.0" styleClass="backgroundImageEst" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="files.agencerecrutement.Controller.AjouterJournalController">
+    <stylesheets>
+        <URL value="@../Styles/Style1.css" />
+    </stylesheets>
+    <GridPane AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+        <rowConstraints>
+            <RowConstraints prefHeight="70" vgrow="NEVER" />
+            <RowConstraints vgrow="ALWAYS" />
+            <RowConstraints prefHeight="80" vgrow="NEVER" />
+        </rowConstraints>
+        <columnConstraints>
+            <ColumnConstraints hgrow="ALWAYS" />
+        </columnConstraints>
+        <!-- header -->
+        <BorderPane GridPane.rowIndex="0">
+            <center>
+                <Label styleClass="labelTitre" text="Nouveau Journal " BorderPane.alignment="CENTER">
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor></Label>
+            </center>
+        </BorderPane>
+        <!-- main -->
+        <VBox spacing="10" styleClass="backgroundWhitTransparant" GridPane.rowIndex="1">
+            <!-- Nom de journal -->
+            <VBox spacing="5" GridPane.rowIndex="0">
+                <Label styleClass="labelForm" text="Nom :" />
+                <TextField fx:id="NomJrText" prefHeight="35" promptText="Entrer ici le Nom du journal  " styleClass="textFieldForm" />
+            </VBox>
+
+            <!-- Langue -->
+            <VBox spacing="5" GridPane.rowIndex="1">
+                <Label styleClass="labelForm" text="Langue:" />
+                <TextField fx:id="LangueTxt" prefHeight="35" promptText="Entrer ici la langue  du journal    " styleClass="textFieldForm" />
+            </VBox>
+
+            <!-- Periodicite -->
+            <VBox spacing="5" GridPane.rowIndex="2">
+                <Label styleClass="labelForm" text="Periodicite:" />
+                <ComboBox fx:id="ComboboxPeriodicite" prefHeight="35" prefWidth="840" styleClass="combo-box" />
+            </VBox>
+
+            <!-- Categorie  -->
+            <VBox spacing="5" GridPane.rowIndex="3">
+                <Label styleClass="labelForm" text="Categorie:" />
+                <ComboBox fx:id="ComboboxCategorie" prefHeight="35" prefWidth="840" styleClass="combo-box" />
+               </VBox>
+            <padding>
+                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+            </padding>
+        </VBox>
+        <!-- footer -->
+        <StackPane GridPane.rowIndex="2">
+            <HBox alignment="CENTER_RIGHT" spacing="10">
+                <!-- annuler button -->
+                <Button fx:id="AnnulerJournalBtn" alignment="CENTER" onAction="#AnnulerJournalvent" prefHeight="45" prefWidth="150.0" styleClass="danger-button">
+                    <graphic>
+                        <ImageView fitHeight="20" fitWidth="20">
+                            <Image url="@../Images/annulerIcon.png" />
+                        </ImageView>
+                    </graphic>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                    Annuler
+                </Button>
+                <!-- enregister button -->
+                <Button fx:id="SaveJournalBtn" alignment="CENTER" onAction="#AjouterJournalEvent" prefHeight="45" prefWidth="150.0" styleClass="primary-button">
+                    <graphic>
+                        <ImageView fitHeight="20" fitWidth="20">
+                            <Image url="@../Images/saveIcon.png" />
+                        </ImageView>
+                    </graphic>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                    Enregistrer
+                </Button>
+            </HBox>
+            <padding>
+                <Insets left="20.0" right="20.0" />
+            </padding>
+        </StackPane>
+
+    </GridPane>
+
+</AnchorPane>
