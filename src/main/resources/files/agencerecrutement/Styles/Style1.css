@@ -1,4 +1,11 @@
 
+.backgroundImageEst{
+    -fx-background-image: url("../Images/est.png");
+    -fx-background-repeat: repeat;
+}
+.backgroundWhitTransparant{
+       -fx-background-color: rgba(255, 255, 255, 0.7);
+}
 .table-view .column-header,
 .table-view .column-header-background .filler {
     -fx-cell-size : 30;
@@ -59,6 +66,7 @@
   .danger-button:pressed {
       -fx-background-color: #B10F00; /* Couleur de fond lorsqu'appuyé */
   }
+
 .textfieldSearch {
     -fx-background-color: #f8f9fa; /* Couleur de fond */
     -fx-border-color: #ced4da; /* Couleur de bordure */
@@ -87,7 +95,7 @@
 .labelForm {
     -fx-font-size: 14px;
     -fx-font-family: "New Times";
-    -fx-font-weight: 400;
+    -fx-font-weight: bold;
     -fx-text-fill: #333333; /* Couleur du texte */
     -fx-padding: 5px; /* Remplissage autour du texte */
     -fx-margin-bottom: 5px; /* Marge inférieure pour l'espace */
@@ -97,20 +105,110 @@
 }
 
 .textFieldForm {
-    -fx-font-size: 14px;
-    -fx-font-family: "New Times";
+    -fx-font-size : 14px;
+    -fx-font-family : "New Times";
     -fx-padding: 8px; /* Remplissage autour du champ */
-    -fx-border-color: #0666664; /* Couleur de la bordure */
-     -fx-border-color: #ced4da; /* Couleur de bordure */
-     -fx-border-width: 1px; /* Largeur de la bordure */
-     -fx-border-radius: 4px; /* Rayon du coin */
+    -fx-border-color : #a1a1a1; /* Couleur de la bordure */
+     -fx-border-width : 1px; /* Largeur de la bordure */
+     -fx-border-radius :  4px; /* Rayon du coin */
      -fx-prompt-text-fill: #6c757d; /* Couleur du texte d'invite */
+      -fx-background-color:transparent;
 }
 .textFieldForm:focused {
-    -fx-border-color: #a1a1a1; /* Couleur de bordure au survol */
+    -fx-border-color: #007bff; /* Couleur de bordure au survol */
 }
 
+/* Style de base du ComboBox */
+.combo-box {
+    -fx-background-color: #ffffff; /* Couleur de fond */
+    -fx-border-color: #cccccc; /* Couleur de la bordure */
+    -fx-border-radius: 5px; /* Rayon de la bordure */
+    -fx-padding: 2px; /* Marge interne */
+    -fx-font-size: 14px; /* Taille de police */
+}
 
+/* Style de la flèche du ComboBox */
+.combo-box .arrow {
+    -fx-background-color: transparent; /* Couleur de fond transparente */
+    -fx-background-radius: 0; /* Rayon de la bordure de la flèche */
+}
+
+/* Style du bouton de la flèche du ComboBox */
+.combo-box .arrow-button {
+    -fx-background-color: transparent; /* Couleur de fond transparente */
+}
+
+/* Style de la flèche elle-même */
+.combo-box .arrow-button .arrow {
+    -fx-background-color: #555555; /* Couleur de la flèche */
+}
+
+/* Style de chaque élément de la liste déroulante */
+.combo-box .list-cell {
+    -fx-background-color: #ffffff; /* Couleur de fond */
+    -fx-font-size: 14px; /* Taille de police */
+}
+
+/* Style des éléments de la liste déroulante lorsque survolés */
+.combo-box .list-cell:hover {
+    -fx-background-color: #eefaa0; /* Couleur de fond au survol */
+    -fx-text-fill: black; /* Couleur du texte */
+}
+
+/* Style de la vue de la liste déroulante */
+.combo-box .list-view {
+    -fx-background-color: #9295A5; /* Couleur de fond */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 1); /* Effet de l'ombre */
+}
+
+/* Style de l'élément sélectionné dans la liste déroulante */
+.combo-box .list-cell:selected {
+    -fx-background-color: #ffffff; /* Couleur de fond de l'élément sélectionné */
+    -fx-text-fill: black; /* Couleur du texte */
+}
+
+.date-picker {
+    -fx-font-size: 14px;
+    -fx-background-color: #ffffff; /* Couleur de fond */
+    -fx-text-fill: #333333; /* Couleur du texte */
+    -fx-prompt-text-fill: #999999; /* Couleur du texte de l'invite */
+    -fx-border-color: #cccccc; /* Couleur de la bordure */
+}
+
+.date-picker .arrow-button {
+    -fx-background-color: transparent; /* Fond transparent */
+}
+
+.date-picker .arrow-button:hover {
+    -fx-background-color: #f0f0f0; /* Couleur de survol */
+}
+
+.date-picker .arrow {
+    -fx-background-color: #666666; /* Couleur de l'icône */
+}
+
+.date-picker .arrow:hover {
+    -fx-background-color: #333333; /* Couleur de l'icône au survol */
+}
+
+.styleBorder {
+    -fx-background-color: white; /* Couleur de fond avec opacité */
+    -fx-border-color: white; /* Couleur de la bordure */
+    -fx-border-width: 1px; /* Épaisseur de la bordure */
+    -fx-border-radius: 8px; /* Rayon de la bordure */
+    -fx-cursor: hand; /* Curseur */
+     -fx-padding :10px 10px 10px 10px ;
+    -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.6), 10, 0, 0, 0); /* Effet d'ombre */
+}
+.scroll-pane > .viewport {
+   -fx-background-color: transparent;
+}
+.scroll-pane {
+   -fx-background-color: transparent;
+}
+.scroll-pane .scroll-bar {
+    -fx-opacity: 0; /* Masquer la barre de défilement */
+}
 
 
 

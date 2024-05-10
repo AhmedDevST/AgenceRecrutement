@@ -36,7 +36,7 @@ public class ModifierCategorieController {
                 //afficher un dialog de confirmation
                 if(showConfirmationDialog("Confirmation","Modifier Ctegorie","Vous voullez sur Modifier cette Categorie ?")){
 
-                    //ajouter au base de donnne
+                    //modifier au base de donnne
                     Categorie categorie = new Categorie(IdCat,LibelleTxt.getText());
                     CategorieDAO.ModifierCategorie(categorie);;
 

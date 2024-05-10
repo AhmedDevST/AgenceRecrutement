@@ -14,6 +14,10 @@ public class Client {
         this.phone = phone;
     }
 
+    public Client(int idClient) {
+        IdClient = idClient;
+    }
+
     public int getIdClient() {
         return IdClient;
     }

@@ -14,6 +14,11 @@ public class Entreprise extends  Client{
         Activites = activites;
     }
 
+    public Entreprise(int idClient, String raisonSocial) {
+        super(idClient);
+        this.raisonSocial = raisonSocial;
+    }
+
     public String getRaisonSocial() {
         return raisonSocial;
     }
@@ -28,5 +33,10 @@ public class Entreprise extends  Client{
 
     public void setActivites(String activites) {
         Activites = activites;
+    }
+
+    @Override
+    public String toString() {
+        return  raisonSocial ;
     }
 }

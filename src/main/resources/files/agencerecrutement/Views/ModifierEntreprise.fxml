@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import java.net.*?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="files.agencerecrutement.Controller.ModifierEntrepriseController"
-            prefHeight="530.0" prefWidth="800.0"
-            style="-fx-background-color: #FFF;">
+<AnchorPane prefHeight="530.0" prefWidth="800.0" styleClass="backgroundImageEst" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="files.agencerecrutement.Controller.ModifierEntrepriseController">
     <stylesheets>
         <URL value="@../Styles/Style1.css" />
     </stylesheets>
@@ -35,7 +30,7 @@
             </center>
         </BorderPane>
         <!-- main -->
-        <VBox spacing="10" style="-fx-background-color: #FFF;" GridPane.rowIndex="1">
+        <VBox spacing="10" styleClass="backgroundWhitTransparant" GridPane.rowIndex="1">
             <!-- raison sociale -->
             <VBox spacing="5" GridPane.rowIndex="0">
                 <Label styleClass="labelForm" text="Raison social:" />
@@ -59,7 +54,7 @@
                 <TextField fx:id="ActiviteTxt" prefHeight="70" promptText="Entrer les Activites de entreprise  " styleClass="textFieldForm" />
             </VBox>
             <padding>
-                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
             </padding>
         </VBox>
         <!-- footer -->
@@ -91,7 +86,7 @@
                 </Button>
             </HBox>
             <padding>
-                <Insets left="10" right="10" />
+                <Insets left="20.0" right="20.0" />
             </padding>
         </StackPane>
 

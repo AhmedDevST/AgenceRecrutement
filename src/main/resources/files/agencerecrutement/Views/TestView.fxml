@@ -1,17 +1,165 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="350.0" prefWidth="562.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="files.agencerecrutement.Controller.TestController">
-   <children>
-      <Button layoutX="241.0" layoutY="280.0" mnemonicParsing="false" onAction="#testMethode" prefHeight="40.0" prefWidth="82.0" text="Test" />
-      <TextArea fx:id="result" layoutX="19.0" layoutY="143.0" prefHeight="120.0" prefWidth="525.0" promptText="result" />
-      <Label layoutX="28.0" layoutY="22.0" text="Result:" />
-      <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="440.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
-         <Image url="@../Images/editIcon.png" />
-      </ImageView>
-   </children>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1090.0" style="-fx-background-color: #FFF;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="files.agencerecrutement.Controller.TestController">
+   <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <columnConstraints>
+         <ColumnConstraints hgrow="NEVER" prefWidth="256" />
+         <ColumnConstraints hgrow="ALWAYS" />
+      </columnConstraints>
+      <rowConstraints>
+         <RowConstraints vgrow="ALWAYS" />
+      </rowConstraints>
+
+      <!-- menu -->
+      <VBox alignment="TOP_CENTER" style="-fx-background-color: #05071F;" GridPane.columnIndex="0">
+         <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../Images/AddIcon.png" />
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+         </ImageView>
+         <Label text="Jimmy Fallon" textFill="#e7e5e5">
+            <VBox.margin>
+               <Insets bottom="20.0" top="10.0" />
+            </VBox.margin>
+            <font>
+               <Font name="Times New Roman Bold Italic" size="14.0" />
+            </font></Label>
+         <!-- est -->
+         <Button alignment="BASELINE_LEFT" graphicTextGap="30.0" onAction="#showEst" prefHeight="42.0" prefWidth="259.0" text="Gestion est" textFill="#ab3232">
+            <graphic>
+               <ImageView>
+                  <Image url="@../Images/AddIcon.png" />
+               </ImageView>
+            </graphic>
+            <font>
+               <Font name="Times New Roman Bold" size="14.0" />
+            </font>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+            <VBox.margin>
+               <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+            </VBox.margin>
+         </Button>
+         <!-- journal -->
+         <Button alignment="BASELINE_LEFT" graphicTextGap="30.0" onAction="#showJournal" prefHeight="42.0" prefWidth="259.0" text="journal" textFill="#ab3232">
+            <graphic>
+               <ImageView>
+                  <Image url="@../Images/AddIcon.png" />
+               </ImageView>
+            </graphic>
+            <font>
+               <Font name="Times New Roman Bold" size="14.0" />
+            </font>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+            <VBox.margin>
+               <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+            </VBox.margin>
+         </Button>
+         <!-- categorie -->
+         <Button alignment="BASELINE_LEFT" graphicTextGap="30.0" onAction="#showCat" prefHeight="42.0" prefWidth="259.0" text="Ctegorie" textFill="#ab3232">
+            <graphic>
+               <ImageView>
+                  <Image url="@../Images/AddIcon.png" />
+               </ImageView>
+            </graphic>
+            <font>
+               <Font name="Times New Roman Bold" size="14.0" />
+            </font>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+            <VBox.margin>
+               <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+            </VBox.margin>
+         </Button>
+       <!-- edition -->
+         <Button alignment="BASELINE_LEFT" graphicTextGap="30.0" onAction="#showedition" prefHeight="42.0" prefWidth="259.0" text="edition" textFill="#ab3232">
+            <graphic>
+               <ImageView>
+                  <Image url="@../Images/AddIcon.png" />
+               </ImageView>
+            </graphic>
+            <font>
+               <Font name="Times New Roman Bold" size="14.0" />
+            </font>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+            <VBox.margin>
+               <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+            </VBox.margin>
+         </Button>
+         <Button alignment="BASELINE_LEFT" onAction="#dashbord" graphicTextGap="30.0" prefHeight="42.0" prefWidth="259.0" text="dashbord" textFill="#ab3232">
+            <graphic>
+               <ImageView>
+                  <Image url="@../Images/AddIcon.png" />
+               </ImageView>
+            </graphic>
+            <font>
+               <Font name="Times New Roman Bold" size="14.0" />
+            </font>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+            <VBox.margin>
+               <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+            </VBox.margin>
+         </Button>
+        <!--annonces -->
+         <Button alignment="BASELINE_LEFT" graphicTextGap="30.0" onAction="#showAnnonce"  prefHeight="42.0" prefWidth="259.0" text="annonces" textFill="#ab3232">
+            <graphic>
+               <ImageView>
+                  <Image url="@../Images/AddIcon.png" />
+               </ImageView>
+            </graphic>
+            <font>
+               <Font name="Times New Roman Bold" size="14.0" />
+            </font>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+            <VBox.margin>
+               <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+            </VBox.margin>
+         </Button>
+         <Button alignment="BASELINE_LEFT" graphicTextGap="30.0" prefHeight="42.0" prefWidth="259.0" text="Sign Out" textFill="#e7e5e5">
+            <graphic>
+               <ImageView>
+                  <Image url="@../Images/AddIcon.png" />
+               </ImageView>
+            </graphic>
+            <font>
+               <Font name="Times New Roman Bold" size="14.0" />
+            </font>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+            <VBox.margin>
+               <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+            </VBox.margin>
+         </Button>
+      </VBox>
+      <!-- main -->
+      <StackPane fx:id="Content" prefHeight="200.0" style="-fx-background-color: #FFF;" GridPane.columnIndex="1">
+
+
+      </StackPane>
+
+      <padding>
+         <Insets bottom="9.0" left="9.0" right="9.0" top="9.0" />
+      </padding>
+   </GridPane>
+
 
 </AnchorPane>

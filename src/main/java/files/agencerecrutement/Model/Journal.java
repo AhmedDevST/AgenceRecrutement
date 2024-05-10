@@ -15,6 +15,11 @@ public class Journal {
         this.categorie = categorie;
     }
 
+    public Journal(int idJr, String nomJr) {
+        this.idJr = idJr;
+        this.nomJr = nomJr;
+    }
+
     public int getIdJr() {
         return idJr;
     }
@@ -53,5 +58,10 @@ public class Journal {
 
     public void setCategorie(Categorie categorie) {
         this.categorie = categorie;
+    }
+
+    @Override
+    public String toString() {
+        return  nomJr ;
     }
 }
