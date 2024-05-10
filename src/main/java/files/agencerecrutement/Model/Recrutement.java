@@ -1,27 +1,27 @@
 package files.agencerecrutement.Model;
 
 public class Recrutement {
-    private Entreprise entreprise;
-    private Postulation postulation;
+    private Demandeur demandeur;
+    private Offre offre;
 
-    public Recrutement(Entreprise entreprise, Postulation postulation) {
-        this.entreprise = entreprise;
-        this.postulation = postulation;
+    public Recrutement(Demandeur demandeur, Offre offre) {
+        this.demandeur = demandeur;
+        this.offre = offre;
     }
 
-    public Entreprise getEntreprise() {
-        return entreprise;
+    public Demandeur getDemandeur() {
+        return demandeur;
     }
 
-    public Postulation getPostulation() {
-        return postulation;
+    public Offre getOffre() {
+        return offre;
     }
 
-    public void setEntreprise(Entreprise entreprise) {
-        this.entreprise = entreprise;
+    public void setDemandeur(Demandeur demandeur) {
+        this.demandeur = demandeur;
     }
 
-    public void setPostulation(Postulation postulation) {
-        this.postulation = postulation;
+    public void setOffre(Offre offre) {
+        this.offre = offre;
     }
 }
