@@ -7,109 +7,84 @@ import java.util.*;
 import static files.agencerecrutement.DAO.Utilitaire.getConnection;
 
 import files.agencerecrutement.Model.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.sql.SQLException;
 
 public class RecrutementDAO {
-    //AjouterRecrutement
-    //select recrutement
-    //list des recrutement
-    //list des recrutement d un entreprise
-    static Connection conn ;
 
-    public void AjouterRecrutement(Demandeur d,Offre o) throws SQLException {
-        conn = getConnection();
-        try {
-            PreparedStatement ps = conn.prepareStatement("INSERT INTO Recrutement(IdDemd,IdOff) INTO VALUES (?,?)");
-            ps.setInt(2,d.getIdClient());
-            ps.setInt(3,o.getIdOffre());
-            ps.executeUpdate();
-            ps.close();
-            conn.close();
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
+    public static ObservableList<Recrutement> afficherRecrutements() {
+        ObservableList<Recrutement> recrutements = FXCollections.observableArrayList();
 
-    public void selectRecrutementparDemandeur(int id) throws SQLException{
-        conn = Utilitaire.getConnection();
-        try{
-            PreparedStatement ps = conn.prepareStatement("SELECT * FROM Recrutement WHERE IdDemd = ?");
-            ps.setInt(1,id);
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()){
-                int idd = rs.getInt("IdDemd");
-                int ido = rs.getInt("IdOff");
+        try (Connection conn = Utilitaire.getConnection()) {
+            // Requête SQL pour sélectionner tous les Recrutements
+            String query = "SELECT Titre,Nom,Prenom,IdOffre,CodeInterneD,CodeInterneEs,RaisonSocial FROM recrutement NATURAL JOIN demandeur NATURAL JOIN offre JOIN entreprise ON offre.Id_Es = entreprise.CodeInterneEs where recrutement.IdDemd = demandeur.CodeInterneD and recrutement.IdOff = offre.IdOffre;";
+            Statement statement = conn.createStatement();
 
-                System.out.println("IdDemandeur : "+idd+", IDOffre : "+ido);
+            // Exécution de la requête
+            ResultSet resultSet = statement.executeQuery(query);
+
+            // Parcours des résultats et création d'instances recrutement
+            while (resultSet.next()) {
+                int idoffre = resultSet.getInt("IdOffre");
+                int Dem = resultSet.getInt("CodeInterneD");
+                int idEs = resultSet.getInt("CodeInterneEs");
+                String nomD = resultSet.getString("Nom");
+                String titre = resultSet.getString("Titre");
+                String prenomD = resultSet.getString("Prenom");
+                String NomEs = resultSet.getString("RaisonSocial");
+
+
+
+                // Création d'une instance Recrutement
+                Recrutement recrutement = new Recrutement(new Demandeur(Dem,nomD,prenomD),new Offre(idoffre,titre,new Entreprise(idEs,NomEs)));
+
+                // Ajout de l'abonnement à la liste observable
+                recrutements.add(recrutement);
             }
-            rs.close();
-            ps.close();
-            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        return recrutements;
     }
 
-    public void selectRecrutementparOffre(int id) throws SQLException{
-        conn = Utilitaire.getConnection();
-        try{
-            PreparedStatement ps = conn.prepareStatement("SELECT * FROM Recrutement WHERE IdOff = ?");
-            ps.setInt(1,id);
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()){
-                int idd = rs.getInt("IdDemd");
-                int ido = rs.getInt("IdOff");
 
-                System.out.println("IdDemandeur : "+idd+", IDOffre : "+ido);
+    public static ObservableList<Recrutement> DisplayRecrutementDemandeur(int Id) {
+        ObservableList<Recrutement> recrutements = FXCollections.observableArrayList();
+
+        try (Connection conn = Utilitaire.getConnection()) {
+            // Requête SQL pour sélectionner tous les Recrutements
+            String query = "SELECT select Titre,Nom,Prenom,IdOffre,CodeInterneD,CodeInterneEs,RaisonSocial FROM recrutement NATURAL JOIN demandeur NATURAL JOIN offre JOIN entreprise ON offre.Id_Es = entreprise.CodeInterneEs where recrutement.IdDemd = demandeur.CodeInterneD and recrutement.IdOff = offre.IdOffre and IdDemd = ?";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.setInt(1,Id);
+
+            // Exécution de la requête
+            ResultSet resultSet = ps.executeQuery(query);
+
+            // Parcours des résultats et création d'instances recrutement
+            while (resultSet.next()) {
+                int idoffre = resultSet.getInt("IdOffre");
+                int Dem = resultSet.getInt("CodeInterneD");
+                int idEs = resultSet.getInt("CodeInterneEs");
+                String nomD = resultSet.getString("Nom");
+                String titre = resultSet.getString("Titre");
+                String prenomD = resultSet.getString("Prenom");
+                String NomEs = resultSet.getString("RaisonSocial");
+
+
+
+                // Création d'une instance Recrutement
+                Recrutement recrutement = new Recrutement(new Demandeur(Dem,nomD,prenomD),new Offre(idoffre,titre,new Entreprise(idEs,NomEs)));
+
+                // Ajout de l'abonnement à la liste observable
+                recrutements.add(recrutement);
             }
-            rs.close();
-            ps.close();
-            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        return recrutements;
     }
-
-    public void ListRecrutement()throws SQLException{
-        conn = Utilitaire.getConnection();
-        try {
-            PreparedStatement ps = conn.prepareStatement("SELECT * FROM Recrutement");
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()){
-                int idd = rs.getInt("IdDemd");
-                int ido = rs.getInt("IdOff");
-
-                System.out.println("IdDemandeur : "+idd+", IDOffre : "+ido);
-            }
-            rs.close();
-            ps.close();
-            conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void ListRecrutementParEntreprise(int Id) throws SQLException{
-            conn = Utilitaire.getConnection();
-            try{
-                PreparedStatement ps = conn.prepareStatement("SELECT * FROM Recrutement NATURAL JOIN Offre NATURAL JOIN Entreprise WHERE CodeInterneEs = ? ");
-                ps.setInt(1,Id);
-                ResultSet rs = ps.executeQuery();
-                while(rs.next()){
-                    int idd = rs.getInt("IdDemd");
-                    int ido = rs.getInt("IdOff");
-
-                    System.out.println("IdDemandeur : "+idd+", IDOffre : "+ido);
-                }
-                rs.close();
-                ps.close();
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
 }
-
-
-

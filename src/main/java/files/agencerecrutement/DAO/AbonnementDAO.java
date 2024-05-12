@@ -10,27 +10,24 @@ import javafx.collections.ObservableList;
 import java.sql.Date.*;
 
 public class AbonnementDAO {
-    static Connection conn;
 
 
-    public Abonnement AjouterAbonnement(int IdAbon, Journal Jr, Entreprise Es, boolean EtatAb, Date ab) throws SQLException {
-        conn = Utilitaire.getConnection();
+
+    public static void AjouterAbonnement(Journal Jr, Entreprise Es, int EtatAb, Date ab) throws SQLException {
+        Connection conn = Utilitaire.getConnection();
         try {
-            PreparedStatement ps = conn.prepareStatement("INSERT INTO Abonnement (IDAbon, Idjr, IdEs, DateExpiration, EtatAbon) VALUES (?, ?, ?, ?, ?)");
-            ps.setInt(1, IdAbon);
-            ps.setInt(2, Jr.getIdJr());
-            ps.setInt(3, Es.getIdClient());
-            ps.setDate(4, ab);
-            ps.setBoolean(5, EtatAb);
+            PreparedStatement ps = conn.prepareStatement("INSERT INTO Abonnement (IDAbon, Idjr, IdEs, DateExpiration, EtatAbon) VALUES (NULL, ?, ?, ?, ?)");
+            ps.setInt(1, Jr.getIdJr());
+            ps.setInt(2, Es.getIdClient());
+            ps.setDate(3, ab);
+            ps.setInt(4, EtatAb);
             ps.executeUpdate();
             ps.close();
             conn.close();
 
-            return new Abonnement(IdAbon, Es, Jr, EtatAb, ab);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null; // Return null if an exception occurs
     }
 
     public static ObservableList<Abonnement> afficherAbonnements() {
@@ -38,7 +35,7 @@ public class AbonnementDAO {
 
         try (Connection conn = Utilitaire.getConnection()) {
             // Requête SQL pour sélectionner tous les abonnements
-            String query = "SELECT IDAbon,DateExpiration, EtatAbon,CodeInterneEs,RaisonSocial,CodeJr,NomJr FROM Abonnement natural join Entreprise natural join Journal";
+            String query = "SELECT Abonnement.IDAbon, DateExpiration, EtatAbon, CodeInterneEs, RaisonSocial, CodeJr, NomJr FROM Abonnement NATURAL JOIN Journal NATURAL JOIN Entreprise WHERE Journal.CodeJr=abonnement.IdJr AND Entreprise.CodeInterneEs = Abonnement.IdEs;";
             Statement statement = conn.createStatement();
 
             // Exécution de la requête
@@ -65,6 +62,51 @@ public class AbonnementDAO {
         }
 
         return Abonnements;
+    }
+
+    public static boolean isCompanyHaveAboInJr(int id_esn, int id_jr) throws SQLException {
+        Connection conn = Utilitaire.getConnection();
+        //recherché le nombre d'abonnement d'une entreprise dans un journal;
+
+            String query = "SELECT count(IDAbon) from abonnement where IdEs = ? and IdJr = ? and EtatAbon = 1;";
+           PreparedStatement ps = conn.prepareStatement(query);
+           ps.setInt(1,id_esn);
+            ps.setInt(2,id_jr);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            int nbreAbActivé = rs.getInt(1);
+            if (nbreAbActivé == 0) {
+                return true;
+            }else {
+                return false;
+            }
+    }
+
+    public static boolean getEtatAbo(int id) throws SQLException {
+        Connection conn = Utilitaire.getConnection();
+        //recherché l'abonnement  active.
+
+        String query = "SELECT EtatAbon from abonnement WHERE IDAbon = ?;";
+        PreparedStatement ps = conn.prepareStatement(query);
+        ps.setInt(1,id);
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        int etat = rs.getInt(1);
+        if (etat == 0) {
+            return false;
+        }else {
+            return true;
+        }
+    }
+
+    public static void ModifierAbonnement(int idabo, Date d) throws SQLException {
+        Connection conn = Utilitaire.getConnection();
+
+        String query = "UPDATE abonnement SET DateExpiration = ? WHERE IDAbon = ?;";
+        PreparedStatement ps = conn.prepareStatement(query);
+        ps.setDate(1,d);
+        ps.setInt(2,idabo);
+        ps.executeUpdate();
     }
 
     /*public void affichageTest() throws SQLException {

@@ -3,6 +3,7 @@ import files.agencerecrutement.DAO.AbonnementDAO;
 import files.agencerecrutement.DAO.CategorieDAO;
 import files.agencerecrutement.DAO.Utilitaire;
 import files.agencerecrutement.Model.*;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -27,8 +28,6 @@ import java.util.Objects;
 public class AbonnementController {
 
     private ObservableList<Abonnement> Abonnements = FXCollections.observableArrayList();
-    @FXML
-    private Button ajoutAbon;
 
     @FXML
     private TableView<Abonnement> tableAbonnements;
@@ -40,13 +39,12 @@ public class AbonnementController {
     private TableColumn<Abonnement, String> colNomJournal;
 
     @FXML
-    private TableColumn<Abonnement, Boolean> colEtatAbonnement;
+    private TableColumn<Abonnement, String> colEtatAbonnement;
 
     @FXML
     private TableColumn<Abonnement, Date> colDateExpiration;
 
-    @FXML
-    private TableColumn<Abonnement,Void> ActionOffre;
+
 
     @FXML
     private TextField searchtext;
@@ -65,13 +63,22 @@ public class AbonnementController {
             // Créer une nouvelle fenêtre
             Stage stage = new Stage();
             stage.setScene(scene);
-            stage.setTitle("Ajouter un follow");
+            stage.setTitle("Ajouter un abonnement");
 
             // Rendre la fenêtre modale
             stage.initModality(Modality.APPLICATION_MODAL);
 
             // Afficher la fenêtre
-            stage.showAndWait();
+            stage.setResizable(false);
+
+            // Wait for the new window to be closed
+            stage.setOnHiding(event -> {
+                // Reload TableView data after closing the "Ajouter Abonnement" window
+                ChargerVueTableau();
+            });
+
+            stage.showAndWait(); // Use showAndWait() to wait for the window to close before continuing
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -79,7 +86,7 @@ public class AbonnementController {
 
 
     @FXML
-    public void initialiser() {
+    public void initialize() {
         try {
             ChargerVueTableau(); // Appelez d'abord la méthode pour charger le tableau avec les données
         } catch (Exception ex) {
@@ -98,57 +105,18 @@ public class AbonnementController {
 
     private void ChargerVueTableau() {
         ChargerDonnée(); // Appelez d'abord la méthode pour charger les données
-        // Utiliser PropertyValueFactory avec le même nom d'attribut sur l'objet Entreprise
-        colNomEntreprise.setCellValueFactory(new PropertyValueFactory<>("raisonSocial"));
-        colNomJournal.setCellValueFactory(new PropertyValueFactory<>("nomJr"));
-        colEtatAbonnement.setCellValueFactory(new PropertyValueFactory<>("etatAbo"));
+        // Utiliser PropertyValueFactory avec le même nom d'attribut sur l'objet abonnement
+        colNomJournal.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getJournal().getNomJr()));
+        colNomEntreprise.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEntreprise().getRaisonSocial()));
+        colEtatAbonnement.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().ReturnEtatString()));
         colDateExpiration.setCellValueFactory(new PropertyValueFactory<>("dateExpiration"));
 
-        // Ajouter une cellule de bouton modifier
-        Callback<TableColumn<Abonnement, Void>, TableCell<Abonnement, Void>> cellFactory =
-                (TableColumn<Abonnement, Void> ActionOffre) -> {
-                    final TableCell<Abonnement, Void> cell = new TableCell<>() {
-                        @Override
-                        public void updateItem(Void item, boolean empty) {
-                            super.updateItem(item, empty);
-                            if (empty) {
-                                setGraphic(null);
-                                setText(null);
-                            } else {
-                                // Icone de modification
-                                final Image imageEdit = new Image(Objects.requireNonNull(getClass().getResource("/files/agencerecrutement/Views/img.png")).toString());
-                                final ImageView editEstViewImg = new ImageView(imageEdit);
-                                // Style
-                                editEstViewImg.setFitWidth(30);
-                                editEstViewImg.setFitHeight(30);
-                                editEstViewImg.setCursor(Cursor.HAND);
-                                Tooltip tooltipEdit = new Tooltip("Ajouter Offre");
-                                Tooltip.install(editEstViewImg, tooltipEdit);
-
-                                // Action sur l'icone de modification
-                                editEstViewImg.setOnMouseClicked(actionEvent -> {
-                                    Abonnement abonnement = getTableView().getItems().get(getIndex());
-                                    // Ouvrir la fenêtre de modification de catégorie
-                                    // OuvrirModifierCategorie(categorie);
-                                });
-
-                                // Mettre l'icone dans un Hbox
-                                HBox Content = new HBox(editEstViewImg);
-                                Content.setStyle("-fx-alignment:center");
-                                setGraphic(Content);
-                                setText(null);
-                            }
-                        }
-                    };
-                    return cell;
-                };
-        ActionOffre.setCellFactory(cellFactory);
 
         tableAbonnements.setItems(Abonnements);
     }
 
     @FXML
-    public void searchAbonnement(ActionEvent event) {
+    public void searchAbonnement() {
         try {
             if (searchtext != null && !searchtext.getText().isEmpty()) {
                 // Créer une autre liste qui va contenir les résultats de la recherche
@@ -170,6 +138,7 @@ public class AbonnementController {
             showAlertWarnning(ex.getMessage());
         }
     }
+
 
 
     public void showAlertWarnning(String message) {

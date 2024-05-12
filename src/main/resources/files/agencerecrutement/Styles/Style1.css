@@ -210,5 +210,35 @@
     -fx-opacity: 0; /* Masquer la barre de défilement */
 }
 
+/* ToggleButton CSS */
+ .toggle-button {
+     -fx-background-color: transparent;
+     -fx-padding: 0.75em 1.25em;
+     -fx-font-size: 1em;
+     -fx-background-radius: 9999; /* To make it fully rounded */
+     -fx-border-width: 1px;
+     -fx-border-color: #CCCCCC;
+     -fx-text-fill: #333333;
+     -fx-font-weight: bold;
+     -fx-alignment: center;
+ }
 
+ .toggle-button:selected {
+     -fx-background-color: #4CAF50;
+     -fx-text-fill: white;
+     -fx-border-color: #4CAF50;
+ }
 
+ .toggle-button:focused {
+     -fx-border-color: #4CAF50;
+     -fx-border-width: 2px;
+ }
+
+ .toggle-button:hover {
+     -fx-background-color: #E0F2F1;
+ }
+
+ /* Icon style */
+ .toggle-button .graphic {
+     -fx-padding: 0 0.25em;
+ }

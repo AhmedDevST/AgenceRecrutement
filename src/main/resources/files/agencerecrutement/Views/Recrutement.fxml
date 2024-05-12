@@ -1,32 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="439.0" prefWidth="673.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <AnchorPane prefHeight="439.0" prefWidth="697.0">
-         <children>
-            <Label layoutX="26.0" layoutY="30.0" text="Recrutement">
-               <font>
-                  <Font name="Times New Roman Bold" size="35.0" />
-               </font>
-            </Label>
-            <Button layoutX="505.0" layoutY="37.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="131.0" text=" + Recruter">
-               <font>
-                  <Font name="Gill Sans Ultra Bold" size="15.0" />
-               </font></Button>
-            <TableView layoutX="48.0" layoutY="133.0" prefHeight="200.0" prefWidth="555.0">
-              <columns>
-                <TableColumn prefWidth="151.0" text="Nom" />
-                <TableColumn prefWidth="127.0" text="Prenom" />
-                  <TableColumn prefWidth="136.0" text="Offre" />
-                  <TableColumn prefWidth="140.0" text="Entreprise" />
-              </columns>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="900.0" styleClass="backgroundImageEst" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="files.agencerecrutement.Controller.RecrutementController">
+    <stylesheets>
+        <URL value="@style.css" />
+        <URL value="@../Styles/Style1.css" />
+    </stylesheets>
+    <GridPane AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+        <rowConstraints>
+            <RowConstraints prefHeight="120" vgrow="NEVER" />
+            <RowConstraints vgrow="ALWAYS" />
+            <RowConstraints prefHeight="10" vgrow="NEVER" />
+        </rowConstraints>
+        <columnConstraints>
+            <ColumnConstraints hgrow="ALWAYS" />
+        </columnConstraints>
+        <!-- header -->
+        <GridPane GridPane.rowIndex="0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="ALWAYS" />
+                <ColumnConstraints hgrow="ALWAYS" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints vgrow="ALWAYS" />
+            </rowConstraints>
+            <!-- recherche -->
+            <HBox alignment="CENTER_LEFT" GridPane.columnIndex="0">
+                <TextField fx:id="searchtext" onAction="#searchRecrutement" prefHeight="38" prefWidth="350" promptText="Recherche par Offre" styleClass="textfieldSearch " HBox.hgrow="NEVER" />
+                <padding>
+                    <Insets bottom="7.0" left="10.0" right="10.0" top="7.0" />
+                </padding>
+            </HBox>
+
+        </GridPane>
+        <!-- main -->
+        <StackPane GridPane.rowIndex="1">
+            <TableView fx:id="tableRecrutements"   style="-fx-background-color: transparent;" styleClass="table-view">
+                <columns>
+                    <TableColumn fx:id="colOffre" prefWidth="75.0" text="Offre" />
+                    <TableColumn fx:id="colNomEntreprise" prefWidth="75.0" text="Entreprise" />
+                    <TableColumn fx:id="colNom" prefWidth="75.0" text="Nom" />
+                    <TableColumn fx:id="colPrenom" prefWidth="112.0" text="Prenom" />
+                </columns>
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                </columnResizePolicy>
             </TableView>
-            <Button layoutX="561.0" layoutY="385.0" mnemonicParsing="false" text="Annuler" />
-         </children>
-      </AnchorPane>
-   </children>
-</HBox>
+            <padding>
+                <Insets bottom="8" left="10" right="10" top="8" />
+            </padding>
+        </StackPane>
+    </GridPane>
+</AnchorPane>

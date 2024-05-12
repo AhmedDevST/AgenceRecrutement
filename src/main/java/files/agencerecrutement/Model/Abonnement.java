@@ -1,5 +1,6 @@
 package files.agencerecrutement.Model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Abonnement {
@@ -55,5 +56,10 @@ public class Abonnement {
 
     public void setDateExpiration(Date dateExpiration) {
         this.dateExpiration = dateExpiration;
+    }
+
+    public  String ReturnEtatString(){
+        if(etatAbo) return "activé";
+        return  "desactivé";
     }
 }

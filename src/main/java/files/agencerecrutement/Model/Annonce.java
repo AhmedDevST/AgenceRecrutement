@@ -11,6 +11,11 @@ public class Annonce {
         this.edition = edition;
     }
 
+    public Annonce(int idAnnonce, Offre offre){
+        this.idAnnonce = idAnnonce;
+        this.offre = offre;
+    }
+
     public int getIdAnnonce() {
         return idAnnonce;
     }

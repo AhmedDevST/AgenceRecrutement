@@ -19,6 +19,12 @@ public class Demandeur extends Client {
         this.diplome = diplome;
     }
 
+    public Demandeur(int idClient,String nom, String prenom){
+        super(idClient);
+        this.nom = nom;
+        this.prenom = prenom;
+    }
+
     public String getNom() {
         return nom;
     }
