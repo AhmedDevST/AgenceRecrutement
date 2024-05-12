@@ -13,6 +13,10 @@ public class Edition {
         this.dateParution = dateParution;
         this.journal = journal;
     }
+    public Edition(int numSequentiel, Date dateParution){
+        this.numSequentiel = numSequentiel;
+        this.dateParution = dateParution;
+    }
 
     public int getNumSequentiel() {
         return numSequentiel;
