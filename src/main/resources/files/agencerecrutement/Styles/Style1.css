@@ -209,6 +209,91 @@
 .scroll-pane .scroll-bar {
     -fx-opacity: 0; /* Masquer la barre de défilement */
 }
+.root {
+    -fx-background-color: rgba(0 , 0 , 0 , 0.5);
+     -fx-background-radius : 10 ;
+}
+.my-text {
+    -fx-font-family: "Verdana";
+    -fx-font-size: 32;
+    -fx-fill: #2E5A78; /* Bleu foncé */
+}
 
+.my-text:hover {
+    -fx-fill: #4A90E2; /* Bleu plus clair au survol */
+}
+
+.my-text-with-shadow {
+    -fx-effect: dropshadow(gaussian, #000000, 10, 0.2, 0, 0);
+}
+
+.my-fade-in {
+    -fx-opacity: 0.0;
+    -fx-transition: opacity 1s;
+}
+.labelStyleLogin {
+    -fx-font-family: "Rubik";
+    -fx-font-weight: bold;
+    -fx-text-fill: #9D6CF3;
+     -fx-cursor: hand;
+     -fx-font-size: 40px;
+}
+
+.labelStyleLogin:hover {
+    -fx-opacity:0.7 ;
+}
+.textfieldLogin{
+    -fx-background-color: white; /* Couleur de fond */
+     -fx-font-size: 14px;
+    -fx-border-color: #ced4da; /* Couleur de bordure */
+    -fx-border-width: 1px; /* Largeur de la bordure */
+    -fx-border-radius: 4px; /* Rayon du coin */
+    -fx-prompt-text-fill: #6c757d; /* Couleur du texte d'invite */
+    -fx-padding : 6px;
+}
+
+.textfieldLogin:hover {
+    -fx-border-color: #8D61DA; /* Couleur de bordure au survol */
+}
+
+.textfieldSearch:focused {
+    -fx-border-color: #9D6CF3; /* Couleur de bordure lorsque le champ est en focus */
+}
+.login-button {
+     -fx-background-color: #8D61DA;
+     -fx-text-fill: white;
+     -fx-font-size: 16px;
+     -fx-font-weight: 700;
+     -fx-padding: 8px 16px;
+     -fx-border-radius: 20px;
+     -fx-font-family: "Verdana Bold";
+      -fx-cursor:hand;
+ }
+
+ .login-button:hover {
+     -fx-background-color: #B68FF8; /* Couleur de fond au survol */
+ }
+ .login-button:pressed {
+      -fx-background-color: #723FCA; /* Couleur de fond lorsqu'appuyé */
+  }
+  .labelFormLogin {
+      -fx-font-size: 14px;
+      -fx-font-family: "Rubik";
+      -fx-font-weight: bold;
+      -fx-text-fill: #958D99; /* Couleur du texte */
+      -fx-padding: 5px; /* Remplissage autour du texte */
+      -fx-margin-bottom: 5px; /* Marge inférieure pour l'espace */
+       -fx-cursor:hand;
+  }
+  .labelForm:hover{
+       -fx-text-fill: #A06EB9;
+  }
+  .labelLogoLogin {
+      -fx-font-family: "Rubik";
+      -fx-font-weight: bold;
+      -fx-text-fill: #171515;
+       -fx-cursor: hand;
+       -fx-font-size: 20px;
+  }
 
 

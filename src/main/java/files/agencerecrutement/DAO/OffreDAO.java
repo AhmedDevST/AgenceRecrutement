@@ -16,7 +16,7 @@ public class OffreDAO {
     //select offre
 
     //list des offres valides
-    public static ObservableList<Offre> ListOffresValides(int IdJr) throws SQLException {
+    public static ObservableList<Offre> ListOffresValides(int IdJr,int NumEdition) throws SQLException {
       ObservableList<Offre> offres = FXCollections.observableArrayList();
 
         // Obtenir la connexion
@@ -24,15 +24,18 @@ public class OffreDAO {
 
         // Créer le statement
         PreparedStatement pst = con.prepareStatement("SELECT e.ID_Offre , o.Titre , est.CodeInterneEs, est.RaisonSocial  " +
-                " FROM emission e NATURAL JOIN abonnement abo NATURAL JOIN offre o NATURAL JOIN entreprise est NATURAL JOIN journal j " +
-                " WHERE e.ID_Ab = abo.IDAbon " +
-                "       AND e.ID_Offre = o.IdOffre " +
-                "       AND est.CodeInterneEs = o.Id_Es " +
-                "       AND abo.IdJr = j.CodeJr " +
-                "       AND abo.EtatAbo = 1 " +
-                "       AND o.EtatOffre = 1" +
-                "       AND j.CodeJr = ? ;");
+                "      FROM emission e NATURAL JOIN abonnement abo NATURAL JOIN offre o NATURAL JOIN entreprise est NATURAL JOIN journal j " +
+                "                 WHERE e.ID_Ab = abo.IDAbon  " +
+                "                       AND e.ID_Offre = o.IdOffre  " +
+                "                       AND est.CodeInterneEs = o.Id_Es  " +
+                "                       AND abo.IdJr = j.CodeJr  " +
+                "                       AND abo.EtatAbo = 1 " +
+                "                       AND o.EtatOffre = 1 " +
+                "                       AND j.CodeJr = ? " +
+                "                       AND o.IdOffre NOT IN ( SELECT  Id_offre FROM annonce " +
+                "                              WHERE Id_edition = ? ); ;");
         pst.setInt(1,IdJr);
+        pst.setInt(2,NumEdition);
         ResultSet res = pst.executeQuery();
         // Remplir la liste
         while (res.next()) {

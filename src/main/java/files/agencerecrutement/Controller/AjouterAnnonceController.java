@@ -43,7 +43,9 @@ public class AjouterAnnonceController {
             //initiliser list des edition
             editions = EditionDAO.afficherEditions();
             //filter les editions  et les offres par journal
-            FiltrerEditionOffreByJournal();
+            FiltrerEditionByJournal();
+            //filter afficher offre valide
+            FiltrerOffreByEdition();
         }catch (Exception ex){
             showAlertWarnning(ex.getMessage());
         }
@@ -72,7 +74,7 @@ public class AjouterAnnonceController {
     }
 
     @FXML
-    private  void  FiltrerEditionOffreByJournal(){
+    private  void  FiltrerEditionByJournal(){
         try{
             //Journal selectionner
             Journal selectedJournal= (Journal) ComboboxJournal.getValue();
@@ -87,13 +89,20 @@ public class AjouterAnnonceController {
                 //affectuer au combobox editions
                 ComboboxEdition.setItems(filteredEditions);
                 ComboboxEdition.getSelectionModel().selectFirst();
-
-                //cree un list contient les offre de Journal selectionner
-                ObservableList<Offre> filteredOffres = FXCollections.observableArrayList();
-                //affectuer au combobox offre
-                ComboboxOffre.setItems(OffreDAO.ListOffresValides(selectedJournal.getIdJr()));
-                ComboboxOffre.getSelectionModel().selectFirst();
             }
+        }catch (Exception ex){
+            showAlertWarnning(ex.getMessage());
+        }
+    }
+    @FXML
+    public void FiltrerOffreByEdition() {
+        try{
+            //edition selectionner
+            Edition selectedEdition= (Edition) ComboboxEdition.getValue();
+            if(selectedEdition!=null){
+                    ComboboxOffre.setItems(OffreDAO.ListOffresValides(selectedEdition.getJournal().getIdJr(),selectedEdition.getNumSequentiel()));
+                    ComboboxOffre.getSelectionModel().selectFirst();
+        }
         }catch (Exception ex){
             showAlertWarnning(ex.getMessage());
         }
@@ -110,16 +119,18 @@ public class AjouterAnnonceController {
                     Edition edition= (Edition) ComboboxEdition.getValue();
                     //offre selectionner
                     Offre offre = (Offre) ComboboxOffre.getValue();
-                    //ajouter au base de donnne
-                    AnnonceDAO.AjouterAnnonce(offre.getIdOffre(),edition.getNumSequentiel());
-
-                    //alert
-                    showAlertInfo("Annonce est bien Ajoute");
-
-                    //fermer la fenetre
-                    Node source = (Node) event.getSource();
-                    Stage stage = (Stage) source.getScene().getWindow();
-                    stage.close();
+                    // tester si offre deja publie
+                    if(!AnnonceDAO.IsOffreDejaPublier(offre.getIdOffre(),edition.getNumSequentiel())){
+                        //ajouter au base de donnne
+                        AnnonceDAO.AjouterAnnonce(offre.getIdOffre(),edition.getNumSequentiel());
+                        //alert
+                        showAlertInfo("Annonce est bien Ajoute");
+                        //fermer la fenetre
+                        Node source = (Node) event.getSource();
+                        Stage stage = (Stage) source.getScene().getWindow();
+                        stage.close();
+                    }else
+                        showAlertWarnning(" l offre :"+offre.getTitre()+" deja publie dans cette edition");
                 }
             }else{
                 showAlertWarnning("vous voullez remplir tous les donnees ");
@@ -156,4 +167,6 @@ public class AjouterAnnonceController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+
 }

@@ -47,6 +47,18 @@ public class AnnonceDAO {
         return annonces;
     }
 
+    public static boolean IsOffreDejaPublier(int idOffre, int numSequentiel) throws SQLException {
+        Connection conn = Utilitaire.getConnection();
+        PreparedStatement ps = conn.prepareStatement("SELECT COUNT(IdAnnonce) as nb FROM annonce " +
+                             " WHERE Id_edition = ? and Id_offre = ? ;");
+        ps.setInt(1,numSequentiel);
+        ps.setInt(2,idOffre);
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        int nb = rs.getInt("nb");
+        return nb != 0;
+    }
+
 
     // select un annonce
 }

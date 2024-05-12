@@ -47,13 +47,13 @@
             <!-- Journal -->
             <VBox spacing="5" GridPane.rowIndex="1">
                 <Label styleClass="labelForm" text="Journal:" />
-                <ComboBox fx:id="ComboboxJournal" onAction="#FiltrerEditionOffreByJournal" prefHeight="35" prefWidth="840" styleClass="combo-box" />
+                <ComboBox fx:id="ComboboxJournal" onAction="#FiltrerEditionByJournal" prefHeight="35" prefWidth="840" styleClass="combo-box" />
             </VBox>
 
             <!-- Edition -->
             <VBox spacing="5" GridPane.rowIndex="2">
                 <Label styleClass="labelForm" text="Edition:" />
-                <ComboBox fx:id="ComboboxEdition" prefHeight="35" prefWidth="840" styleClass="combo-box" />
+                <ComboBox fx:id="ComboboxEdition"  onAction="#FiltrerOffreByEdition" prefHeight="35" prefWidth="840" styleClass="combo-box" />
             </VBox>
 
             <!-- Offre  -->

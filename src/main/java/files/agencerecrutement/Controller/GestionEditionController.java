@@ -71,7 +71,7 @@ public class GestionEditionController {
         DateParutionEd.setCellValueFactory(new PropertyValueFactory<>("dateParution"));
         NomJournal.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getJournal().getNomJr()));
         Categorie.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getJournal().getCategorie().getLibelle()));
-        //add cell of button edit
+        //add cell of button publier
         Callback<TableColumn<Edition,Void> , TableCell<Edition,Void>> cellFactory=
                 (TableColumn<Edition, Void> param) ->{
                     final  TableCell<Edition,Void> cell = new  TableCell<Edition,Void>(){
@@ -83,28 +83,28 @@ public class GestionEditionController {
                                 setText(null);
                             }else{
 
-                                //icon supprimer edition
-                                final Image imageDelete = new Image(Objects.requireNonNull(getClass().getResource("/files/agencerecrutement/Images/SupprimerIcon.png")).toString());
-                                final ImageView deleteEstViewImg = new ImageView(imageDelete);
+                                //icon Publier edition
+                                final Image imagePublier = new Image(Objects.requireNonNull(getClass().getResource("/files/agencerecrutement/Images/un-journal.png")).toString());
+                                final ImageView PublierEstViewImg = new ImageView(imagePublier);
                                 //style
-                                deleteEstViewImg.setFitWidth(30);
-                                deleteEstViewImg.setFitHeight(30);
-                                deleteEstViewImg.setCursor(Cursor.HAND);
-                                Tooltip tooltipEdit = new Tooltip("Delete edition");
-                                Tooltip.install(deleteEstViewImg,tooltipEdit);
+                                PublierEstViewImg.setFitWidth(30);
+                                PublierEstViewImg.setFitHeight(30);
+                                PublierEstViewImg.setCursor(Cursor.HAND);
+                                Tooltip tooltipEdit = new Tooltip("Publier offres ");
+                                Tooltip.install(PublierEstViewImg,tooltipEdit);
 
-                                //event sur icon suppprimer
-                                deleteEstViewImg.setOnMouseClicked(actionEvent -> {
+                                //event sur icon publier
+                                PublierEstViewImg.setOnMouseClicked(actionEvent -> {
                                     //get edition selectionner dans tableview
                                     Edition edition = getTableView().getItems().get(getIndex());
-                                    //supprimer
-                                    SupprimerEdition(edition);
+                                    //ouvrir publier offre
+                                    OuvrirPublierOffres(edition);
                                 } );
 
                                 //met  icon dans un Hbox
-                                HBox ContentAllbtn = new HBox(deleteEstViewImg);
+                                HBox ContentAllbtn = new HBox(PublierEstViewImg);
                                 ContentAllbtn.setStyle("-fx-alignment:center");
-                                HBox.setMargin(deleteEstViewImg, new Insets(2, 7, 7, 3));
+                                HBox.setMargin(PublierEstViewImg, new Insets(2, 7, 7, 3));
 
                                 setGraphic(ContentAllbtn);
 
@@ -148,17 +148,23 @@ public class GestionEditionController {
             showAlertWarnning(ex.getMessage());
         }
     }
-    //modifier edidtion
-    private void SupprimerEdition(Edition edition) {
+    //publier offres
+    private void OuvrirPublierOffres(Edition edition) {
         try{
-            //fermer le fenetre ou initialisez les donnees dans les inputs
-            if(showConfirmationDialog("Confirmation","Supprimer Edition","Vous voullez sur supprimer cette edition ?")){
-               if(EditionDAO.SupprimerEdition(edition)){
-                   showAlertInfo("Edition est bien supprimer");
-                   loadTableView();
-                }else
-                    showAlertWarnning("Impossible de supprimer cette edition!!");
-            }
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/files/agencerecrutement/Views/PublierOffres.fxml"));
+            Parent parent = fxmlLoader.load();
+
+            //cree instance de controller publierOffresController
+            PublierOffresController publierOffresController = fxmlLoader.getController();
+            //passer au controller  l objet edition
+            publierOffresController.initData(edition);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(parent));
+            stage.setTitle("Publier offres ");
+            stage.centerOnScreen();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
         }catch(Exception ex){
             showAlertWarnning(ex.getMessage());
         }
