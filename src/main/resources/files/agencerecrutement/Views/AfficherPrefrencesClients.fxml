@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            styleClass="backgroundImageEst"
+            fx:controller="files.agencerecrutement.Controller.AfficherPrefrencesClientsController"
+            prefHeight="500.0" prefWidth="600.0">
+    <stylesheets>
+        <URL value="@../Styles/Style1.css" />
+    </stylesheets>
+    <GridPane vgap="20.0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+        <rowConstraints>
+            <RowConstraints prefHeight="70" vgrow="NEVER" />
+            <RowConstraints vgrow="ALWAYS" />
+            <RowConstraints prefHeight="10" vgrow="NEVER" />
+        </rowConstraints>
+        <columnConstraints>
+            <ColumnConstraints hgrow="ALWAYS" />
+        </columnConstraints>
+        <!-- header -->
+        <BorderPane GridPane.rowIndex="0">
+            <center>
+                <Label fx:id="TitreTxt" styleClass="labelTitre" text="Preferences Client " BorderPane.alignment="CENTER">
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor></Label>
+            </center>
+        </BorderPane>
+        <!-- main -->
+        <!-- les  prefernces -->
+        <VBox   styleClass="styleBorder" GridPane.rowIndex="1">
+            <TableView fx:id="DataPreferences" styleClass="table-view">
+                <columns>
+                    <TableColumn fx:id="LibelleCat" prefWidth="70" text="Categorie " />
+                </columns>
+                <columnResizePolicy>
+                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                </columnResizePolicy>
+            </TableView>
+            <padding>
+                <Insets bottom="8" left="10" right="10" top="8" />
+            </padding>
+        </VBox>
+    </GridPane>
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+</AnchorPane>

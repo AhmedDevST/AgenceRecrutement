@@ -55,6 +55,18 @@
         <!-- footer -->
         <StackPane GridPane.rowIndex="2">
             <HBox alignment="CENTER_RIGHT" spacing="10">
+                <!-- annuler button -->
+                <Button fx:id="AnnulerEditionBtn" alignment="CENTER" onAction="#AnnulerEditionvent" prefHeight="45" prefWidth="150.0" styleClass="danger-button">
+                    <graphic>
+                        <ImageView fitHeight="20" fitWidth="20">
+                            <Image url="@../Images/annulerIcon.png" />
+                        </ImageView>
+                    </graphic>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                    Annuler
+                </Button>
                 <!-- enregister button -->
                 <Button fx:id="SaveEditionBtn" alignment="CENTER" onAction="#AjouterEdition" prefHeight="45" prefWidth="150.0" styleClass="primary-button">
                     <graphic>

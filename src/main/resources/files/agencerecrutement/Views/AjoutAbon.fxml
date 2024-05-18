@@ -32,9 +32,31 @@
       <!-- main -->
       <VBox spacing="10" styleClass="backgroundWhitTransparant" GridPane.rowIndex="1">
          <!-- raison sociale -->
-         <VBox spacing="5" >
+         <VBox spacing="5">
             <Label styleClass="labelForm" text="Entreprise:" />
-            <ComboBox fx:id="ComboboxEntreprise" prefHeight="35" prefWidth="840" styleClass="combo-box" />
+            <ComboBox fx:id="ComboboxEntreprise" onAction="#FiltrerCategorieByEntreprise" prefHeight="35" prefWidth="840" styleClass="combo-box" />
+         </VBox>
+         <!-- categorie -->
+         <VBox spacing="5">
+            <GridPane>
+               <rowConstraints>
+                  <RowConstraints vgrow="ALWAYS" />
+               </rowConstraints>
+               <columnConstraints>
+                  <ColumnConstraints hgrow="ALWAYS" />
+                  <ColumnConstraints hgrow="ALWAYS" />
+               </columnConstraints>
+               <HBox alignment="CENTER_LEFT" GridPane.columnIndex="0">
+                  <Label styleClass="labelForm" text="Categorie:" />
+                  <Label fx:id="TypeCatgorieTxt" styleClass="labelForm" text="les preferences " />
+               </HBox>
+               <StackPane alignment="CENTER_RIGHT" GridPane.columnIndex="1">
+                  <Hyperlink fx:id="VoirTousLink" onAction="#VoirTouscategories" text="tous les categories" />
+                  <Hyperlink fx:id="VoirPrefrencesLink" onAction="#VoirLesPrefrences"  text="voir les Preferences" visible="false" />
+               </StackPane>
+            </GridPane>
+
+            <ComboBox fx:id="ComboboxCategorie" onAction="#FiltrerJournalByCategorie" prefHeight="35" prefWidth="840" styleClass="combo-box" />
          </VBox>
          <!-- nomJournal -->
          <VBox spacing="5">
@@ -42,7 +64,7 @@
             <ComboBox fx:id="ComboboxJournal" prefHeight="35" prefWidth="840" styleClass="combo-box" />
          </VBox>
          <!-- DateExpiration -->
-         <VBox spacing="5" >
+         <VBox spacing="5">
             <Label styleClass="labelForm" text="Date d'expiration :" />
             <DatePicker fx:id="DateExp" prefHeight="35" prefWidth="840" styleClass="date-picker" />
          </VBox>
@@ -54,7 +76,7 @@
       <StackPane GridPane.rowIndex="2">
          <HBox alignment="CENTER_RIGHT" spacing="10">
             <!-- annuler button -->
-            <Button fx:id="AnnulerAbonBtn" onAction="#AnnulerAbonnementEvent" alignment="CENTER"  prefHeight="45" prefWidth="150.0" styleClass="danger-button">
+            <Button fx:id="AnnulerAbonBtn" alignment="CENTER" onAction="#AnnulerAbonnementEvent" prefHeight="45" prefWidth="150.0" styleClass="danger-button">
                <graphic>
                   <ImageView fitHeight="20" fitWidth="20">
                      <Image url="@../Images/annulerIcon.png" />
@@ -66,7 +88,7 @@
                Annuler
             </Button>
             <!-- enregister button -->
-            <Button fx:id="SaveAbonnementBtn" onAction="#AjouterAbonnement" alignment="CENTER"  prefHeight="45" prefWidth="150.0" styleClass="primary-button">
+            <Button fx:id="SaveAbonnementBtn" alignment="CENTER" onAction="#AjouterAbonnement" prefHeight="45" prefWidth="150.0" styleClass="primary-button">
                <graphic>
                   <ImageView fitHeight="20" fitWidth="20">
                      <Image url="@../Images/saveIcon.png" />

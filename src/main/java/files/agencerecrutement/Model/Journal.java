@@ -19,7 +19,11 @@ public class Journal {
         this.idJr = idJr;
         this.nomJr = nomJr;
     }
-
+    public Journal(int idJr, String nomJr,Categorie categorie) {
+        this.idJr = idJr;
+        this.nomJr = nomJr;
+        this.categorie = categorie;
+    }
     public int getIdJr() {
         return idJr;
     }

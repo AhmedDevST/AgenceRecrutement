@@ -7,7 +7,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" prefHeight="500.0" prefWidth="800.0" spacing="20.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="files.agencerecrutement.Controller.LoginController">
+<VBox alignment="CENTER" prefHeight="500.0" prefWidth="820.0" spacing="20.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="files.agencerecrutement.Controller.LoginController">
     <stylesheets>
         <URL value="@../Styles/Style1.css" />
     </stylesheets>
@@ -16,11 +16,11 @@
             <ColumnConstraints hgrow="ALWAYS" />
         </columnConstraints>
         <rowConstraints>
-            <RowConstraints vgrow="NEVER" prefHeight="40" />
+            <RowConstraints prefHeight="40" vgrow="NEVER" />
             <RowConstraints vgrow="ALWAYS" />
         </rowConstraints>
         <!-- hrader -->
-        <GridPane GridPane.rowIndex="0" >
+        <GridPane GridPane.rowIndex="0">
             <columnConstraints>
                 <ColumnConstraints hgrow="ALWAYS" />
                 <ColumnConstraints hgrow="ALWAYS" />
@@ -28,8 +28,8 @@
             <rowConstraints>
                 <RowConstraints vgrow="ALWAYS" />
             </rowConstraints>
-            <HBox GridPane.columnIndex="0" alignment="CENTER_LEFT">
-                <Label text="JobLink Press" styleClass="labelLogoLogin"/>
+            <HBox alignment="CENTER_LEFT" GridPane.columnIndex="0">
+                <Label  styleClass="labelLogoLogin" text="JobLink Press" />
             </HBox>
                 <!-- imnage close -->
             <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1">
@@ -41,8 +41,8 @@
                 </ImageView>
             </HBox>
         </GridPane>
-
-        <GridPane  GridPane.rowIndex="1">
+        <!-- mian -->
+        <GridPane GridPane.rowIndex="1">
             <columnConstraints>
                 <ColumnConstraints hgrow="ALWAYS" />
                 <ColumnConstraints hgrow="ALWAYS" />
@@ -50,15 +50,55 @@
             <rowConstraints>
                 <RowConstraints vgrow="ALWAYS" />
             </rowConstraints>
-            <!-- image -->
-            <VBox alignment="CENTER"  GridPane.columnIndex="0">
-                <ImageView fitHeight="400" fitWidth="400" pickOnBounds="true" preserveRatio="true">
-                    <Image url="@../Images/imgaeLogin2.png" />
-                    <cursor>
-                        <Cursor fx:constant="HAND" />
-                    </cursor>
-                </ImageView>
+            <!-- choix de role et image -->
+            <VBox alignment="CENTER" spacing="10" GridPane.columnIndex="0">
+                <!-- Role user-->
+                <HBox alignment="CENTER" spacing="10">
+                    <Button fx:id="btnAgent" alignment="CENTER" onAction="#ClickAgent" prefHeight="40" prefWidth="130.0" styleClass="RoleUserButton">
+                        <graphic>
+                            <ImageView fitHeight="30" fitWidth="30">
+                                <Image url="@../Images/admin.png" />
+                            </ImageView>
+                        </graphic>
+                        <cursor>
+                            <Cursor fx:constant="HAND" />
+                        </cursor>
+                        Agent
+                    </Button>
+                    <Button fx:id="btnEntreprise" alignment="CENTER" onAction="#ClickEntreprise" prefHeight="40" prefWidth="130.0" styleClass="RoleUserButton">
+                        <graphic>
+                            <ImageView fitHeight="30" fitWidth="30">
+                                <Image url="@../Images/immeuble-de-bureaux.png" />
+                            </ImageView>
+                        </graphic>
+                        <cursor>
+                            <Cursor fx:constant="HAND" />
+                        </cursor>
+                        Entreprise
+                    </Button>
+                    <Button fx:id="btnDemandeur" alignment="CENTER" prefHeight="40" onAction="#ClickDemandeur" prefWidth="130.0" styleClass="RoleUserButton">
+                        <graphic>
+                            <ImageView fitHeight="30" fitWidth="30">
+                                <Image url="@../Images/candidats.png" />
+                            </ImageView>
+                        </graphic>
+                        <cursor>
+                            <Cursor fx:constant="HAND" />
+                        </cursor>
+                        Demandeur
+                    </Button>
+                </HBox>
+                <!-- image -->
+                <VBox alignment="CENTER">
+                    <ImageView fitHeight="400" fitWidth="400" pickOnBounds="true" preserveRatio="true">
+                        <Image url="@../Images/imgaeLogin2.png" />
+                        <cursor>
+                            <Cursor fx:constant="HAND" />
+                        </cursor>
+                    </ImageView>
+                </VBox>
             </VBox>
+
             <!-- login -->
             <!-- inputs button -->
             <VBox spacing="35" GridPane.columnIndex="1">
@@ -68,7 +108,7 @@
                 <!--   text filed email  -->
                 <VBox spacing="10">
                     <Label alignment="CENTER_LEFT" styleClass="labelFormLogin" text="Email :" />
-                    <TextField fx:id="emailTxt" prefHeight="38.0" promptText="Enter ici votre email address " styleClass="textfieldLogin" />
+                    <TextField fx:id="userNameTxt" prefHeight="38.0" promptText="Enter ici votre email address " styleClass="textfieldLogin" />
                 </VBox>
                 <!--   text filed password  -->
                 <VBox spacing="10">
@@ -77,7 +117,7 @@
                 </VBox>
                 <!-- button -->
                 <HBox alignment="CENTER_LEFT">
-                    <Button fx:id="loginButton" alignment="CENTER" onAction="#loginEvent" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="45.0" prefWidth="180.0" styleClass="login-button" text="Connexion">
+                    <Button fx:id="loginButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#loginEvent" prefHeight="45.0" prefWidth="180.0" styleClass="login-button" text="Connexion">
                </Button>
                 </HBox>
             <padding>

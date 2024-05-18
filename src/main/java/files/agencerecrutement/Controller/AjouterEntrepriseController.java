@@ -22,29 +22,40 @@ public class AjouterEntrepriseController {
     private TextField PhoneTxt ;
     @FXML
     private TextField ActiviteTxt ;
+    @FXML
+    private  TextField PasswordTxt;
+    @FXML
+    private TextField UsernameTxt;
 
    // event sur button ajouter : ajouter entreprise
     @FXML
     private  void AjouterEntrepriseEvent(ActionEvent event){
         try{
-            if(CheckInput()){ // si tous les donnes sont remplir
-                //afficher un dialog de confirmation
-                if(showConfirmationDialog("Confirmation","Ajouter Entreprise","Vous voullez sur Ajouter cette Entreprise ?")){
+            if(CheckInput()){
+                // si tous les donnes sont remplir
+                if(CheckUniciteUserName()){
+                    // si username est unique
+                    //afficher un dialog de confirmation
+                    if(showConfirmationDialog("Confirmation","Ajouter Entreprise","Vous voullez sur Ajouter cette Entreprise ?")){
 
-                    //ajouter au base de donnne
-                    Entreprise entreprise = new Entreprise(0,AdresseTxt.getText(),PhoneTxt.getText(),RaisonSocialText.getText(),ActiviteTxt.getText());
-                    EntrepriseDAO.AjouterEntreprise(entreprise);
+                        //ajouter au base de donnne
+                        Entreprise entreprise =
+                                new Entreprise(0, UsernameTxt.getText(),PasswordTxt.getText(), AdresseTxt.getText(),PhoneTxt.getText(),RaisonSocialText.getText(),ActiviteTxt.getText());
+                        EntrepriseDAO.AjouterEntreprise(entreprise);
 
-                    //alert
-                    showAlertInfo("Entreprise est bien Ajoute");
+                        //alert
+                        showAlertInfo("Entreprise est bien Ajoute");
 
-                    //fermer la fenetre
-                    Node source = (Node) event.getSource();
-                    Stage stage = (Stage) source.getScene().getWindow();
-                    stage.close();
+                        //fermer la fenetre
+                        Node source = (Node) event.getSource();
+                        Stage stage = (Stage) source.getScene().getWindow();
+                        stage.close();
+                    }
+                }else{
+                    showAlertWarnning(" ce user name deja utiliser  !! ");
                 }
             }else{
-                showAlertWarnning("vous voullez remplir tous les donnees ");
+                showAlertWarnning(" les donnees sont incorrects!! ");
             }
         }catch (Exception ex){
             showAlertWarnning("Probleme lors insertion !!" +ex);
@@ -65,6 +76,8 @@ public class AjouterEntrepriseController {
                 AdresseTxt.clear();
                 PhoneTxt.clear();
                 ActiviteTxt.clear();
+                UsernameTxt.clear();
+                PasswordTxt.clear();
             }
         }catch (Exception ex){
               showAlertWarnning("Probleme : " +ex);
@@ -73,7 +86,16 @@ public class AjouterEntrepriseController {
     // tester si tous les donnees sont remplir
     private boolean CheckInput(){
         return ( !RaisonSocialText.getText().isEmpty() && !AdresseTxt.getText().isEmpty() &&
-                !PhoneTxt.getText().isEmpty() && !ActiviteTxt.getText().isEmpty() );
+                !PhoneTxt.getText().isEmpty() && !ActiviteTxt.getText().isEmpty() &&
+                !UsernameTxt.getText().isEmpty() && !PasswordTxt.getText().isEmpty());
+    }
+    private  boolean CheckUniciteUserName(){
+        try {
+            // on donner id 0 pour faire test sur tous les entreprise
+            return  !EntrepriseDAO.IsUserNameExist(UsernameTxt.getText(),0);
+        }catch (Exception ex){
+            return  false;
+        }
     }
     private  boolean showConfirmationDialog(String title , String Header , String Content){
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

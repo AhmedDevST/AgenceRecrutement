@@ -7,11 +7,11 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="530.0" prefWidth="800.0" styleClass="backgroundImageEst" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="files.agencerecrutement.Controller.ModifierEntrepriseController">
+<AnchorPane prefHeight="570.0" prefWidth="800.0" styleClass="backgroundImageEst" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="files.agencerecrutement.Controller.ModifierEntrepriseController">
     <stylesheets>
         <URL value="@../Styles/Style1.css" />
     </stylesheets>
-    <GridPane AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+    <GridPane AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" vgap="10">
         <rowConstraints>
             <RowConstraints prefHeight="70" vgrow="NEVER" />
             <RowConstraints vgrow="ALWAYS" />
@@ -53,6 +53,29 @@
                 <Label styleClass="labelForm" text="Activites:" />
                 <TextField fx:id="ActiviteTxt" prefHeight="70" promptText="Entrer les Activites de entreprise  " styleClass="textFieldForm" />
             </VBox>
+            <!-- information de login -->
+            <GridPane  hgap="10">
+                <rowConstraints>
+                    <RowConstraints vgrow="ALWAYS" />
+                </rowConstraints>
+                <columnConstraints>
+                    <ColumnConstraints hgrow="ALWAYS" />
+                    <ColumnConstraints hgrow="ALWAYS" />
+                </columnConstraints>
+                <!-- username -->
+                <VBox spacing="5" GridPane.columnIndex="0">
+                    <Label styleClass="labelForm" text="Username:" />
+                    <TextField fx:id="UsernameTxt" prefHeight="35" promptText="Entrer ici le user name d' entreprise " styleClass="textFieldForm" />
+                </VBox>
+                <!-- mot de passe -->
+                <VBox spacing="5"  GridPane.columnIndex="1">
+                    <Label styleClass="labelForm" text="mot de passe:" />
+                    <TextField fx:id="PasswordTxt" prefHeight="35" promptText="Entrer ici le mot de passe  d'entreprise    " styleClass="textFieldForm" />
+                </VBox>
+                <padding>
+                    <Insets top="15.0" bottom="15.0" />
+                </padding>
+            </GridPane>
             <padding>
                 <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
             </padding>
@@ -72,6 +95,18 @@
                     </cursor>
                     Annuler
                 </Button>
+                <!-- reset button -->
+                <Button fx:id="ResetEntrepiseBtn" alignment="CENTER" onAction="#restEntrepiseEvent" prefHeight="45" prefWidth="150.0" styleClass="rest-button">
+                    <graphic>
+                        <ImageView fitHeight="20" fitWidth="20">
+                            <Image url="@../Images/reseticon.png" />
+                        </ImageView>
+                    </graphic>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                    Réinitialiser
+                </Button>
                 <!-- enregister button -->
                 <Button fx:id="SaveEntrepiseBtn" alignment="CENTER" onAction="#ModifierEntrepriseEvent" prefHeight="45" prefWidth="150.0" styleClass="primary-button">
                     <graphic>
@@ -85,10 +120,9 @@
                     Modifier
                 </Button>
             </HBox>
-            <padding>
-                <Insets left="20.0" right="20.0" />
-            </padding>
         </StackPane>
-
     </GridPane>
+    <padding>
+        <Insets top="20.0" bottom="20" right="20" left="20" />
+    </padding>
 </AnchorPane>

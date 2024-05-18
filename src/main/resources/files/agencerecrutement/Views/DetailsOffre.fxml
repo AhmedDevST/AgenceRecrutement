@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<AnchorPane  prefHeight="530.0" prefWidth="860.0"  xmlns="http://javafx.com/javafx"
+             xmlns:fx="http://javafx.com/fxml"
+             styleClass="backgroundImageEst"
+             fx:controller="files.agencerecrutement.Controller.DetailsOffreController">
+    <stylesheets>
+        <URL value="@../Styles/Style1.css" />
+    </stylesheets>
+    <GridPane vgap="10" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+        <rowConstraints>
+            <RowConstraints prefHeight="70" vgrow="NEVER" />
+            <RowConstraints vgrow="ALWAYS" />
+            <RowConstraints prefHeight="80" vgrow="NEVER" />
+        </rowConstraints>
+        <columnConstraints>
+            <ColumnConstraints hgrow="ALWAYS" />
+        </columnConstraints>
+        <!-- header -->
+        <BorderPane GridPane.rowIndex="0">
+            <center>
+                <Label styleClass="labelTitre" text="Details Offre" BorderPane.alignment="CENTER">
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor></Label>
+            </center>
+        </BorderPane>
+        <!-- main -->
+        <VBox spacing="10" styleClass="backgroundWhitTransparant" GridPane.rowIndex="1">
+            <!--Titre d'offre -->
+            <VBox spacing="5" GridPane.rowIndex="0">
+                <Label styleClass="labelForm" text="Titre d'offre" />
+                <TextField fx:id="titre" prefHeight="35" editable="false" styleClass="textFieldForm"  />
+            </VBox>
+
+            <!-- Compétences -->
+            <VBox spacing="5" GridPane.rowIndex="1">
+                <Label styleClass="labelForm" text="Compétences" />
+                <TextField fx:id="competences" prefHeight="75" editable="false" styleClass="textFieldForm"  />
+            </VBox>
+            <!-- Entreprise -->
+            <VBox spacing="5" GridPane.rowIndex="1">
+                <Label styleClass="labelForm" text="Entreprise" />
+                <TextField fx:id="RaisonSocial" prefHeight="35" editable="false" styleClass="textFieldForm"  />
+            </VBox>
+            <!-- Phone -->
+            <VBox spacing="5" GridPane.rowIndex="2">
+                <Label styleClass="labelForm" text="Nombre Années experiences" />
+                <TextField fx:id="anneeEx"  prefHeight="35" editable="false" styleClass="textFieldForm"  />
+            </VBox>
+            <!-- Nombre Postes  -->
+            <VBox spacing="5" GridPane.rowIndex="3">
+                <Label styleClass="labelForm" text="Nombre Postes" />
+                <TextField fx:id="nbPoste"  prefHeight="35" editable="false" styleClass="textFieldForm"  />
+            </VBox>
+            <GridPane  hgap="10">
+                <rowConstraints>
+                    <RowConstraints vgrow="ALWAYS" />
+                </rowConstraints>
+                <columnConstraints>
+                    <ColumnConstraints hgrow="ALWAYS" />
+                    <ColumnConstraints hgrow="ALWAYS" />
+                </columnConstraints>
+                <!-- Nombre Postes  recrutes -->
+                <VBox spacing="5" GridPane.columnIndex="0" >
+                    <Label styleClass="labelForm" text="Nombre Recruter" />
+                    <TextField fx:id="nbPosteRecruter"  prefHeight="35" editable="false" styleClass="textFieldForm"  />
+                </VBox>
+                <!-- Etat -->
+                <VBox spacing="5" GridPane.columnIndex="1">
+                    <Label styleClass="labelForm" text="Etat d' offre " />
+                    <TextField fx:id="EtatOffre"  prefHeight="35" editable="false" styleClass="textFieldForm"  />
+                </VBox>
+                <padding>
+                    <Insets top="15.0" bottom="15.0" />
+                </padding>
+            </GridPane>
+            <padding>
+                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+            </padding>
+        </VBox>
+        <!-- footer -->
+    </GridPane>
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+</AnchorPane>

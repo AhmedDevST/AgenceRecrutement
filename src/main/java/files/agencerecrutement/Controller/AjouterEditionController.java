@@ -16,7 +16,6 @@ import javafx.stage.Stage;
 
 import java.sql.Date;
 import java.time.LocalDate;
-import java.util.Optional;
 
 public class AjouterEditionController {
 
@@ -44,7 +43,7 @@ public class AjouterEditionController {
             DateParution.setValue(LocalDate.now());
 
         }catch (Exception ex){
-            showAlertWarnning(ex.getMessage());
+            AlertsConfirmationsController.showAlertWarnning(ex.getMessage());
         }
     }
 
@@ -58,17 +57,19 @@ public class AjouterEditionController {
 
             //cree un list contient les journaux de categorie selectionner
             ObservableList<Journal> filteredJournaux = FXCollections.observableArrayList();
-            for(Journal journal:journaux){
-                if(journal.getCategorie().getIdcate() == selectedCategorie.getIdcate())
-                    filteredJournaux.add(journal);
+
+            if(selectedCategorie!=null){
+                for(Journal journal:journaux){
+                    if(journal.getCategorie().getIdcate() == selectedCategorie.getIdcate())
+                        filteredJournaux.add(journal);
+                }
             }
 
             //affectuer au combobox
             ComboboxJournal.setItems(filteredJournaux);
             ComboboxJournal.getSelectionModel().selectFirst();
-
         }catch (Exception ex){
-            showAlertWarnning(ex.getMessage());
+            AlertsConfirmationsController.showAlertWarnning(ex.getMessage());
         }
     }
 
@@ -77,7 +78,7 @@ public class AjouterEditionController {
         try{
             if(DateParution.getValue()!= null && ComboboxCategorie.getValue()!=null && ComboboxJournal.getValue()!=null) { // si tous les donnes sont remplir
                 //afficher un dialog de confirmation
-                if(showConfirmationDialog("Confirmation","Ajouter Edition","Vous voullez sur Ajouter  cette Edition ?")){
+                if(AlertsConfirmationsController.showConfirmationDialog("Confirmation","Ajouter Edition","Vous voullez sur Ajouter  cette Edition ?")){
 
                     //journal selectionner
                     Journal journal= (Journal) ComboboxJournal.getValue();
@@ -85,41 +86,34 @@ public class AjouterEditionController {
                     Edition editionInsert = new Edition(0, Date.valueOf(DateParution.getValue()),journal);
                     EditionDAO.AjouterEdition(editionInsert);
                     //alert
-                    showAlertInfo("Edition est bien Ajouter" );
+                    AlertsConfirmationsController.showAlertInfo("Edition est bien Ajouter" );
                     //fermer la fenetre
                     Node source = (Node) event.getSource();
                     Stage stage = (Stage) source.getScene().getWindow();
                     stage.close();
                 }
             }else{
-                showAlertWarnning("vous voullez remplir tous les donnees ");
+                AlertsConfirmationsController.showAlertWarnning("vous voullez remplir tous les donnees ");
             }
 
         }catch (Exception ex){
-            showAlertWarnning(ex.getMessage());
+            AlertsConfirmationsController.showAlertWarnning(ex.getMessage());
         }
     }
-    private  boolean showConfirmationDialog(String title , String Header , String Content){
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(Header);
-        alert.setContentText(Content);
-        Optional<ButtonType> result = alert.showAndWait();
-        return result.get() == ButtonType.OK;
-    }
-    public void showAlertWarnning(String message) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("title");
-        alert.setHeaderText("Look, an Information Dialog");
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-    public void showAlertInfo(String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("title");
-        alert.setHeaderText("Look, an Information Dialog");
-        alert.setContentText(message);
-        alert.showAndWait();
+    // event sur button annuler
+    @FXML
+    private  void AnnulerEditionvent(ActionEvent event){
+        try{
+            //fermer le fenetre ou initialisez les donnees dans les inputs
+            if(AlertsConfirmationsController.showConfirmationDialog("Confirmation","Ajouter Edition","Vous voullez sur annuler cette opeartion ?")){
+                //fermer la fenetre
+                Node source = (Node) event.getSource();
+                Stage stage = (Stage) source.getScene().getWindow();
+                stage.close();
+            }
+        }catch (Exception ex){
+            AlertsConfirmationsController.showAlertWarnning("Probleme : " +ex);
+        }
     }
 
 }

@@ -12,6 +12,7 @@
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="files.agencerecrutement.Controller.GestionAnnoncesController"
+            styleClass="backgroundImageEst"
             prefHeight="400.0" prefWidth="600.0">
     <stylesheets>
         <URL value="@../Styles/Style1.css" />
@@ -63,13 +64,18 @@
             </padding>
         </GridPane>
         <!-- main -->
-        <StackPane GridPane.rowIndex="1">
+        <VBox GridPane.rowIndex="1" spacing="10">
+            <StackPane alignment="CENTER_LEFT">
+                <Hyperlink text="Voir Les annonces liee a vos preferences " onAction="#AfficherAnnonceByPrefernces" fx:id="AnnonceByPreferncesLink"/>
+                <Hyperlink text="Voir Tous Les annonces" visible="false"  onAction="#AfficherTousAnnonce" fx:id="TousAnnonceLink"/>
+            </StackPane>
             <TableView fx:id="DataAnnonces" style="-fx-background-color: transparent;" styleClass="table-view">
                 <columns>
                     <TableColumn fx:id="NumeSequentiel" prefWidth="10" text="Numero Sequentiel " />
                     <TableColumn fx:id="Offre" prefWidth="70" text="Offre  " />
                     <TableColumn fx:id="dateParution" prefWidth="70" text="Date Parution" />
                     <TableColumn fx:id="Journal" prefWidth="50" text="Journal" />
+                    <TableColumn fx:id="categorieCol" prefWidth="50" text="Categorie" />
                     <TableColumn fx:id="ActionsCol" prefWidth="40" text="Actions" />
                 </columns>
                 <columnResizePolicy>
@@ -79,7 +85,7 @@
             <padding>
                 <Insets bottom="8" left="10" right="10" top="8" />
             </padding>
-        </StackPane>
+        </VBox>
         <!-- footer -->
     </GridPane>
 </AnchorPane>

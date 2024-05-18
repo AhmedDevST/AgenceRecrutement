@@ -4,6 +4,7 @@ import files.agencerecrutement.DAO.EditionDAO;
 import files.agencerecrutement.DAO.JournalDAO;
 import files.agencerecrutement.Model.Edition;
 import files.agencerecrutement.Model.Journal;
+import files.agencerecrutement.Model.User;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -49,8 +50,11 @@ public class GestionEditionController {
     public  void initialize(){
         try{
             loadTableView();
-            ComboboxJournal.setItems(JournalDAO.afficherJournaux());
-            ComboboxJournal.getSelectionModel().selectFirst();
+            ObservableList<Journal> journals = FXCollections.observableArrayList();
+            journals = JournalDAO.afficherJournaux();
+            journals.add(new Journal(0,"tous"));
+            ComboboxJournal.setItems(journals);
+            ComboboxJournal.getSelectionModel().selectLast();
         }catch (Exception ex){
             showAlertWarnning(ex.getMessage());
         }
@@ -125,29 +129,23 @@ public class GestionEditionController {
     private  void  filterEdition(){
         try{
                 ObservableList<Edition> filteredEditions= FXCollections.observableArrayList();
-                for(Edition edition : editions){
-                    //journal selectionner
-                    Journal journal= (Journal) ComboboxJournal.getValue();
-                    if(edition.getJournal().getIdJr() == journal.getIdJr())
-                        filteredEditions.add(edition);
-                }
-                if(!filteredEditions.isEmpty()){
-                    DataEdition.setItems(filteredEditions);
+                //journal selectionner
+                Journal journal= (Journal) ComboboxJournal.getValue();
+                if(journal.getIdJr() ==  0){
+                    //si selectionner tous les journals
+                   loadTableView();
                 }else{
-                    loadTableView();
+                    for(Edition edition : editions){
+                        if(edition.getJournal().getIdJr() == journal.getIdJr())
+                            filteredEditions.add(edition);
+                    }
+                    DataEdition.setItems(filteredEditions);
                 }
         }catch(Exception ex){
             showAlertWarnning(ex.getMessage());
         }
     }
-    @FXML
-    private  void refreshData(){
-        try  {
-             loadTableView();
-        }catch(Exception ex){
-            showAlertWarnning(ex.getMessage());
-        }
-    }
+
     //publier offres
     private void OuvrirPublierOffres(Edition edition) {
         try{

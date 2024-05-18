@@ -66,5 +66,4 @@ public class CategorieDAO {
         return categories;
     }
 
-
 }

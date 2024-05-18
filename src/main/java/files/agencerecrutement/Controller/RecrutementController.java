@@ -2,18 +2,25 @@ package files.agencerecrutement.Controller;
 
 import files.agencerecrutement.DAO.PostulationDAO;
 import files.agencerecrutement.DAO.RecrutementDAO;
-import files.agencerecrutement.Model.Postulation;
-import files.agencerecrutement.Model.Recrutement;
+import files.agencerecrutement.Model.*;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Cursor;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.util.Objects;
@@ -37,28 +44,52 @@ public class RecrutementController {
 
         @FXML
         private TableColumn<Recrutement, String> colNomEntreprise;
-
+        @FXML
+        private TableColumn<Recrutement,Void> colActions;
 
         @FXML
         private TextField searchtext;
 
-        @FXML
-        public void initialize() {
-            try {
-                ChargerVueTableau(); // Appelez d'abord la méthode pour charger le tableau avec les données
-            } catch (Exception ex) {
-                showAlertWarnning(ex.getMessage());
-            }
-        }
+    private User user ;
+    private  int idDemndeur ;
 
-        private void ChargerDonnée() {
-            try {
-                // Obtenir la liste des abonnements à partir de la base de données
-                recrutements = RecrutementDAO.afficherRecrutements();
-            } catch (Exception ex) {
-                showAlertWarnning(ex.getMessage());
-            }
+    //initialiser interface en fonction de user
+    public  void initData(User user,int idDem){
+        try{
+            this.user = user ;
+            idDemndeur = idDem;
+            ChargerVueTableau();
+        }catch (Exception ex){
+            showAlertWarnning("probleme:"+ex.getMessage());
         }
+    }
+
+    private void ChargerDonnée() {
+        try {
+            switch (user.getRoleUser()){
+                case  1 :
+                    //agent :
+                    if(idDemndeur == 0){
+                        // on charger tous les recrutements
+                        recrutements = RecrutementDAO.afficherRecrutements();
+                    }else{
+                        // on charger  les recrutements d un demandeur
+                        recrutements = RecrutementDAO.DisplayRecrutementDemandeur(idDemndeur);
+                    }
+                    break;
+                case 2:
+                    //entreprise: on charger ses  recrutement a ses offres
+                    recrutements = RecrutementDAO.DisplayRecrutementEntreprise(user.getIdUser());
+                    break;
+                case  3 :
+                    //demandeur: on charger ses  recrutetement
+                    recrutements = RecrutementDAO.DisplayRecrutementDemandeur(user.getIdUser());
+                    break;
+            }
+        } catch (Exception ex) {
+            showAlertWarnning(ex.getMessage());
+        }
+    }
 
         private void ChargerVueTableau() {
             ChargerDonnée(); // Appelez d'abord la méthode pour charger les données
@@ -67,18 +98,120 @@ public class RecrutementController {
             colNom.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDemandeur().getNom()));
             colPrenom.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDemandeur().getPrenom()));
             colNomEntreprise.setCellValueFactory(CellData -> new SimpleStringProperty(CellData.getValue().getOffre().getEntreprise().getRaisonSocial()));
+
+            // Ajouter une cellule de bouton info
+            Callback<TableColumn<Recrutement, Void>, TableCell<Recrutement, Void>> cellFactory =
+                    (TableColumn<Recrutement, Void> ActionsCol) -> {
+                        final TableCell<Recrutement, Void> cell = new TableCell<>() {
+                            @Override
+                            public void updateItem(Void item, boolean empty) {
+                                super.updateItem(item, empty);
+                                if (empty) {
+                                    setGraphic(null);
+                                    setText(null);
+                                } else {
+
+                                    // Icone de info sur offre
+                                    final Image imageOffre = new Image(Objects.requireNonNull(getClass().getResource("/files/agencerecrutement/Images/afficherOffres.png")).toString());
+                                    final ImageView OffreViewImg = new ImageView(imageOffre);
+                                    // Style
+                                    OffreViewImg.setFitWidth(30);
+                                    OffreViewImg.setFitHeight(30);
+                                    OffreViewImg.setCursor(Cursor.HAND);
+                                    Tooltip tooltipOffre = new Tooltip("details Offre");
+                                    Tooltip.install(OffreViewImg, tooltipOffre);
+
+                                    // Action sur l'icone de info
+                                    OffreViewImg.setOnMouseClicked(actionEvent -> {
+                                        Recrutement recrutement = getTableView().getItems().get(getIndex());
+                                        // Ouvrir la fenêtre details offre
+                                        OuvrirdetailsOffre(recrutement.getOffre());
+                                    });
+
+                                    // Icone de info sur demandeur
+                                    final Image imageDemandeur= new Image(Objects.requireNonNull(getClass().getResource("/files/agencerecrutement/Images/candidats.png")).toString());
+                                    final ImageView DemandeurViewImg = new ImageView(imageDemandeur);
+                                    // Style
+                                    DemandeurViewImg.setFitWidth(30);
+                                    DemandeurViewImg.setFitHeight(30);
+                                    DemandeurViewImg.setCursor(Cursor.HAND);
+                                    Tooltip tooltipDemandeur = new Tooltip("details demandeur");
+                                    Tooltip.install(DemandeurViewImg, tooltipDemandeur);
+
+                                    // Action sur l'icone de info
+                                    DemandeurViewImg.setOnMouseClicked(actionEvent -> {
+                                        Recrutement recrutement = getTableView().getItems().get(getIndex());
+                                        // Ouvrir la  details demandeur
+                                        OuvrirdetailsDemandeur(recrutement.getDemandeur());
+                                    });
+
+                                    // Mettre l'icone dans un Hbox
+                                    HBox Content = new HBox(OffreViewImg,DemandeurViewImg);
+                                    Content.setStyle("-fx-alignment:CENTER");
+                                    HBox.setMargin(OffreViewImg, new Insets(2, 7, 7, 3));
+                                    HBox.setMargin(DemandeurViewImg, new Insets(2, 7, 7, 3));
+                                    setGraphic(Content);
+                                    setText(null);
+                                }
+                            }
+                        };
+                        return cell;
+                    };
+            colActions.setCellFactory(cellFactory);
             tableRecrutements.setItems(recrutements);
         }
 
 
+    private  void OuvrirdetailsOffre(Offre offre){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/files/agencerecrutement/Views/DetailsOffre.fxml"));
+            Parent parent = fxmlLoader.load();
 
-        public void showAlertWarnning(String message) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("title");
-            alert.setHeaderText("Look, an Information Dialog");
-            alert.setContentText(message);
-            alert.showAndWait();
+            //cree instance de controller ModifierEntrepriseController
+            DetailsOffreController detailsOffreController = fxmlLoader.getController();
+            //passer au controller  l objet entreprise
+
+            detailsOffreController.initData(offre.getIdOffre());
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(parent));
+            stage.setTitle("Détails Offre ");
+            stage.centerOnScreen();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
+
+        }catch (Exception e)
+        {
+            AlertsConfirmationsController.showAlertWarnning(e.getMessage());
         }
+    }
+    private void OuvrirdetailsDemandeur(Demandeur demandeur){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/files/agencerecrutement/Views/DetailsDemandeur.fxml"));
+            Parent parent = fxmlLoader.load();
+
+            DetailsDemandeur detailsDemandeurController = fxmlLoader.getController();
+            detailsDemandeurController.initData(demandeur.getIdUser(),user);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(parent));
+            stage.setTitle("Détails Demandeur ");
+            stage.centerOnScreen();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
+
+        }catch (Exception e)
+        {
+            AlertsConfirmationsController.showAlertWarnning(e.getMessage());
+        }
+    }
+    public void showAlertWarnning(String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("title");
+        alert.setHeaderText("Look, an Information Dialog");
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
         public void showAlertInfo(String message) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("title");

@@ -4,10 +4,7 @@ import files.agencerecrutement.Model.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class AnnonceDAO {
     //ajouterAnnonce
@@ -27,23 +24,66 @@ public class AnnonceDAO {
     public static ObservableList<Annonce> ListAnnonces() throws SQLException {
         ObservableList<Annonce> annonces = FXCollections.observableArrayList();
         Connection conn = Utilitaire.getConnection();
-            PreparedStatement ps = conn.prepareStatement("SELECT a.IdAnnonce , o.IdOffre , o.Titre , e.IdEd , e.DateParution , " +
-                    " j.CodeJr ,j.NomJr " +
-                    " FROM annonce a NATURAL JOIN offre o NATURAL JOIN editions e NATURAL JOIN journal j " +
-                    " WHERE a.Id_edition = e.IdEd and a.Id_offre = o.IdOffre and e.journalEd = j.CodeJr;");
-            ResultSet rs = ps.executeQuery();
+        Statement st = conn.createStatement();
+        ResultSet rs  = st.executeQuery("SELECT " +
+                "   a.IdAnnonce , o.IdOffre , o.Titre , e.IdEd , e.DateParution , j.CodeJr ,j.NomJr , c.IdCat, c.Libelle " +
+                "   FROM  " +
+                "       annonce a NATURAL JOIN offre o" +
+                "        NATURAL JOIN editions e " +
+                "       NATURAL JOIN journal j" +
+                "        NATURAL JOIN categorie c" +
+                "  WHERE " +
+                "       a.Id_edition = e.IdEd " +
+                "       AND a.Id_offre = o.IdOffre " +
+                "       AND e.journalEd = j.CodeJr " +
+                "       AND j.categorie = c.IdCat ;");
+
             while (rs.next()) {
                 annonces.add( new Annonce(
                         rs.getInt(1) ,
                         new Offre(rs.getInt(2),rs.getString(3)),
                         new Edition( rs.getInt(4), rs.getDate(5),
-                                new Journal(rs.getInt(6),rs.getString(7) )
+                                new Journal(rs.getInt(6),rs.getString(7),
+                                        new Categorie(rs.getInt(8),rs.getString(9)) )
                         ))
                 );
             }
             rs.close();
-            ps.close();
+            st.close();
             conn.close();
+        return annonces;
+    }
+    public static ObservableList<Annonce> ListAnnoncesByPreferences(int idDemandeur) throws SQLException {
+        ObservableList<Annonce> annonces = FXCollections.observableArrayList();
+        Connection conn = Utilitaire.getConnection();
+        PreparedStatement ps = conn.prepareStatement("SELECT " +
+                "   a.IdAnnonce , o.IdOffre , o.Titre , e.IdEd , e.DateParution , j.CodeJr ,j.NomJr , c.IdCat, c.Libelle " +
+                "   FROM  " +
+                "       annonce a NATURAL JOIN offre o" +
+                "        NATURAL JOIN editions e " +
+                "       NATURAL JOIN journal j" +
+                "        NATURAL JOIN categorie c" +
+                "  WHERE " +
+                "       a.Id_edition = e.IdEd " +
+                "       AND a.Id_offre = o.IdOffre " +
+                "       AND e.journalEd = j.CodeJr " +
+                "       AND j.categorie = c.IdCat " +
+                "       AND c.IdCat IN (SELECT ID_Cat FROM pref_demandeur WHERE ID_Dem = ?);");
+        ps.setInt(1,idDemandeur);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            annonces.add( new Annonce(
+                    rs.getInt(1) ,
+                    new Offre(rs.getInt(2),rs.getString(3)),
+                    new Edition( rs.getInt(4), rs.getDate(5),
+                            new Journal(rs.getInt(6),rs.getString(7),
+                                    new Categorie(rs.getInt(8),rs.getString(9)) )
+                    ))
+            );
+        }
+        rs.close();
+        ps.close();
+        conn.close();
         return annonces;
     }
 

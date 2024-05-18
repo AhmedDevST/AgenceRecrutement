@@ -5,17 +5,13 @@ import files.agencerecrutement.Model.Entreprise;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.util.Optional;
 
 public class ModifierEntrepriseController {
 
     private Entreprise entreprise ;
-    private  int CodeInterneEst = 0 ;
     @FXML
     private TextField RaisonSocialText ;
     @FXML
@@ -24,25 +20,59 @@ public class ModifierEntrepriseController {
     private TextField PhoneTxt ;
     @FXML
     private TextField ActiviteTxt ;
+    @FXML
+    private  TextField PasswordTxt;
+    @FXML
+    private TextField UsernameTxt;
 
+
+
+    //permet de initialiser objet entreprise et initiliser les input
+    public  void initData(int idEst){
+        try{
+            this.entreprise = EntrepriseDAO.SelectEntreprise(idEst);
+            if(this.entreprise != null){
+                RaisonSocialText.setText(entreprise.getRaisonSocial());
+                AdresseTxt.setText(entreprise.getAdresse());
+                PhoneTxt.setText(entreprise.getPhone());
+                ActiviteTxt.setText(entreprise.getActivites());
+                PasswordTxt.setText(entreprise.getPassword());
+                UsernameTxt.setText(entreprise.getUserName());
+            }
+        }catch (Exception ex){
+            AlertsConfirmationsController.showAlertWarnning("Probleme :" +ex);
+        }
+    }
     //event annuler button
     @FXML
     public void AnnulerEntrepriseEvent(ActionEvent event) {
         try{
             //fermer le fenetre ou initialisez les donnees dans les inputs
-            if(showConfirmationDialog("Confirmation","Modifier Entreprise","Vous voullez sur annuler ces moodifications ?")){
+            if(AlertsConfirmationsController.showConfirmationDialog("Confirmation","Modifier Entreprise","Vous voullez sur annuler ces moodifications ?")){
                 //fermer la fenetre
-              /*  Node source = (Node) event.getSource();
+                Node source = (Node) event.getSource();
                 Stage stage = (Stage) source.getScene().getWindow();
-                stage.close();*/
-                //initialisez les donnees dans les inputs
+                stage.close();
+            }
+        }catch (Exception ex){
+            AlertsConfirmationsController.showAlertWarnning("Probleme : " +ex);
+        }
+    }
+    //event rest button
+    @FXML
+    public void restEntrepiseEvent() {
+        try{
+            //fermer le fenetre ou initialisez les donnees dans les inputs
+            if(AlertsConfirmationsController.showConfirmationDialog("Confirmation","Modifier Entreprise","Vous voullez sur de Réinitialiser  les donnees ?")){
                 RaisonSocialText.setText(entreprise.getRaisonSocial());
                 AdresseTxt.setText(entreprise.getAdresse());
                 PhoneTxt.setText(entreprise.getPhone());
                 ActiviteTxt.setText(entreprise.getActivites());
+                PasswordTxt.setText(entreprise.getPassword());
+                UsernameTxt.setText(entreprise.getUserName());
             }
         }catch (Exception ex){
-            showAlertWarnning("Probleme : " +ex);
+            AlertsConfirmationsController.showAlertWarnning("Probleme : " +ex);
         }
     }
 
@@ -50,68 +80,52 @@ public class ModifierEntrepriseController {
     @FXML
     public void ModifierEntrepriseEvent(ActionEvent event) {
         try{
-            if(CheckInput()){ // si tous les donnes sont remplir
-                if(showConfirmationDialog("Confirmation","Modifier Entreprise","Vous voullez sur Modifier cette Entreprise ?")){
+            if(CheckInput()){
+                // si tous les donnes sont remplir
+                if(CheckUniciteUserName())
+                {
+                    // si username est unique
+                    if(AlertsConfirmationsController.showConfirmationDialog("Confirmation","Modifier Entreprise","Vous voullez sur Modifier cette Entreprise ?")){
 
-                    //modifier au base de donnnee
-                    Entreprise entreprise = new Entreprise(CodeInterneEst,AdresseTxt.getText(),PhoneTxt.getText(),RaisonSocialText.getText(),ActiviteTxt.getText());
-                    EntrepriseDAO.ModifierEntreprise(entreprise);
+                        //modifier au base de donnnee
+                        //cree un nouveau objet et meter les donne modifie
+                        Entreprise entrepriseModifier =
+                                new Entreprise(this.entreprise.getIdUser(), UsernameTxt.getText(),PasswordTxt.getText(), AdresseTxt.getText(),PhoneTxt.getText(),RaisonSocialText.getText(),ActiviteTxt.getText());
+                        EntrepriseDAO.ModifierEntreprise(entrepriseModifier);
 
-                    //alert
-                    showAlertInfo("Entreprise est bien Modifier");
+                        //alert
+                        AlertsConfirmationsController.showAlertInfo("Entreprise est bien Modifier");
 
-                    //fermer la fenetre
-                    Node source = (Node) event.getSource();
-                    Stage stage = (Stage) source.getScene().getWindow();
-                    stage.close();
+                        //fermer la fenetre
+                        Node source = (Node) event.getSource();
+                        Stage stage = (Stage) source.getScene().getWindow();
+                        stage.close();
+                    }
+                }else{
+                    AlertsConfirmationsController.showAlertWarnning(" ce user name deja utiliser  !! ");
                 }
             }else{
-                showAlertWarnning("vous voullez remplir tous les donnees ");
+                AlertsConfirmationsController.showAlertWarnning(" les donnees sont incorrects!! ");
             }
         }catch (Exception ex){
-            showAlertWarnning("Probleme lors insertion !!" +ex);
+            AlertsConfirmationsController.showAlertWarnning("Probleme lors insertion !!" +ex.getMessage());
         }
     }
 
-    //permet de initialiser objet entreprise et initiliser les input
-    public  void initData(Entreprise entreprise){
-        try{
-            this.entreprise = entreprise;
-            CodeInterneEst = entreprise.getIdClient();
-            RaisonSocialText.setText(entreprise.getRaisonSocial());
-            AdresseTxt.setText(entreprise.getAdresse());
-            PhoneTxt.setText(entreprise.getPhone());
-            ActiviteTxt.setText(entreprise.getActivites());
-        }catch (Exception ex){
-            showAlertWarnning("Probleme :" +ex);
-        }
-    }
+
 
     // tester si tous les donnees sont remplir
     private boolean CheckInput(){
         return ( !RaisonSocialText.getText().isEmpty() && !AdresseTxt.getText().isEmpty() &&
-                !PhoneTxt.getText().isEmpty() && !ActiviteTxt.getText().isEmpty() );
+                !PhoneTxt.getText().isEmpty() && !ActiviteTxt.getText().isEmpty() &&
+                !UsernameTxt.getText().isEmpty() && !PasswordTxt.getText().isEmpty());
     }
-    private  boolean showConfirmationDialog(String title , String Header , String Content){
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(Header);
-        alert.setContentText(Content);
-        Optional<ButtonType> result = alert.showAndWait();
-        return result.get() == ButtonType.OK;
-    }
-    public void showAlertWarnning(String message) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("title");
-        alert.setHeaderText("Look, an Information Dialog");
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-    public void showAlertInfo(String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("title");
-        alert.setHeaderText("Look, an Information Dialog");
-        alert.setContentText(message);
-        alert.showAndWait();
+    private  boolean CheckUniciteUserName(){
+         try {
+             // on donner id de entreprise pour faire test sur tous les entreprise suaf entreprise veut modifier
+             return  !EntrepriseDAO.IsUserNameExist(UsernameTxt.getText(),this.entreprise.getIdUser());
+         }catch (Exception ex){
+             return  false;
+         }
     }
 }

@@ -1,4 +1,5 @@
 package files.agencerecrutement.Controller;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -89,5 +90,34 @@ public class TestController {
             showAlert(ex.getMessage());
         }
     }
-
+    @FXML
+    public void showAbo( ) {
+        try{
+            Parent fxml = FXMLLoader.load(getClass().getResource("/files/agencerecrutement/Views/Abonnement.fxml"));
+            Content.getChildren().removeAll();
+            Content.getChildren().setAll(fxml);
+        }catch (Exception ex){
+            showAlert(ex.getMessage());
+        }
+    }
+    @FXML
+    public void showPostulation() {
+        try{
+            Parent fxml = FXMLLoader.load(getClass().getResource("/files/agencerecrutement/Views/Postulation.fxml"));
+            Content.getChildren().removeAll();
+            Content.getChildren().setAll(fxml);
+        }catch (Exception ex){
+            showAlert(ex.getMessage());
+        }
+    }
+    @FXML
+    public void showRecrutement() {
+        try{
+            Parent fxml = FXMLLoader.load(getClass().getResource("/files/agencerecrutement/Views/Recrutement.fxml"));
+            Content.getChildren().removeAll();
+            Content.getChildren().setAll(fxml);
+        }catch (Exception ex){
+            showAlert(ex.getMessage());
+        }
+    }
 }

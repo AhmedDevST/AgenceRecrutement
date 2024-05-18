@@ -17,15 +17,13 @@ public class ModifierCategorieController {
     @FXML
     private TextField LibelleTxt ;
     private  Categorie categorie;
-    private int IdCat = 0;
 
     public void initData(Categorie categorie) {
         try{
             this.categorie = categorie;
-            IdCat = categorie.getIdcate();
             LibelleTxt.setText(categorie.getLibelle());
         }catch (Exception ex){
-            showAlertWarnning("Probleme :" +ex);
+            AlertsConfirmationsController.showAlertWarnning("Probleme :" +ex);
         }
     }
     // event sur button Modifier : Modifier categorie
@@ -34,14 +32,14 @@ public class ModifierCategorieController {
         try{
             if(CheckInput()){ // si tous les donnes sont remplir
                 //afficher un dialog de confirmation
-                if(showConfirmationDialog("Confirmation","Modifier Ctegorie","Vous voullez sur Modifier cette Categorie ?")){
+                if(AlertsConfirmationsController.showConfirmationDialog("Confirmation","Modifier Ctegorie","Vous voullez sur Modifier cette Categorie ?")){
 
                     //modifier au base de donnne
-                    Categorie categorie = new Categorie(IdCat,LibelleTxt.getText());
+                    Categorie categorie = new Categorie(this.categorie.getIdcate(),LibelleTxt.getText());
                     CategorieDAO.ModifierCategorie(categorie);;
 
                     //alert
-                    showAlertInfo("Categorie est bien Modifier");
+                    AlertsConfirmationsController.showAlertInfo("Categorie est bien Modifier");
 
                     //fermer la fenetre
                     Node source = (Node) event.getSource();
@@ -49,10 +47,23 @@ public class ModifierCategorieController {
                     stage.close();
                 }
             }else{
-                showAlertWarnning("vous voullez remplir tous les donnees ");
+                AlertsConfirmationsController.showAlertWarnning("vous voullez remplir tous les donnees ");
             }
         }catch (Exception ex){
-            showAlertWarnning("Probleme lors insertion !!" +ex);
+            AlertsConfirmationsController.showAlertWarnning("Probleme lors insertion !!" +ex);
+        }
+    }
+    // event sur button rest
+    @FXML
+    private  void restCategorieEvent(){
+        try{
+            //fermer le fenetre ou initialisez les donnees dans les inputs
+            if(AlertsConfirmationsController.showConfirmationDialog("Confirmation","Modifier Categorie","Vous voullez sur de Réinitialiser  les donnees?")){
+                //initialisez les donnees dans les inputs
+                LibelleTxt.setText(categorie.getLibelle());
+            }
+        }catch (Exception ex){
+            AlertsConfirmationsController.showAlertWarnning("Probleme : " +ex);
         }
     }
 
@@ -61,43 +72,19 @@ public class ModifierCategorieController {
     private  void AnnulerCategorieEvent(ActionEvent event){
         try{
             //fermer le fenetre ou initialisez les donnees dans les inputs
-            if(showConfirmationDialog("Confirmation","Modifier Categorie","Vous voullez sur annuler cette opeartion ?")){
+            if(AlertsConfirmationsController.showConfirmationDialog("Confirmation","Modifier Categorie","Vous voullez sur annuler cette opeartion ?")){
                 //fermer la fenetre
-              /*  Node source = (Node) event.getSource();
+                Node source = (Node) event.getSource();
                 Stage stage = (Stage) source.getScene().getWindow();
-                stage.close();*/
-                //initialisez les donnees dans les inputs
-                LibelleTxt.setText(categorie.getLibelle());
+                stage.close();
             }
         }catch (Exception ex){
-            showAlertWarnning("Probleme : " +ex);
+            AlertsConfirmationsController.showAlertWarnning("Probleme : " +ex);
         }
     }
 
     // tester si tous les donnees sont remplir
     private boolean CheckInput(){
         return !LibelleTxt.getText().isEmpty() ;
-    }
-    private  boolean showConfirmationDialog(String title , String Header , String Content){
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(Header);
-        alert.setContentText(Content);
-        Optional<ButtonType> result = alert.showAndWait();
-        return result.get() == ButtonType.OK;
-    }
-    public void showAlertWarnning(String message) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("title");
-        alert.setHeaderText("Look, an Information Dialog");
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-    public void showAlertInfo(String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("title");
-        alert.setHeaderText("Look, an Information Dialog");
-        alert.setContentText(message);
-        alert.showAndWait();
     }
 }

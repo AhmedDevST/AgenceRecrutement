@@ -7,9 +7,11 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="900.0" styleClass="backgroundImageEst" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="files.agencerecrutement.Controller.RecrutementController">
+<?import javafx.scene.control.skin.TabPaneSkin.TabControlButtons?>
+<?import javafx.util.Callback?>
+<AnchorPane prefHeight="400.0" prefWidth="900.0" styleClass="backgroundImageEst" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="files.agencerecrutement.Controller.RecrutementController">
     <stylesheets>
-        <URL value="@style.css" />
+
         <URL value="@../Styles/Style1.css" />
     </stylesheets>
     <GridPane AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
@@ -41,13 +43,16 @@
         </GridPane>
         <!-- main -->
         <StackPane GridPane.rowIndex="1">
-            <TableView fx:id="tableRecrutements"   style="-fx-background-color: transparent;" styleClass="table-view">
+            <TableView fx:id="tableRecrutements"    style="-fx-background-color: transparent;" >
                 <columns>
                     <TableColumn fx:id="colOffre" prefWidth="75.0" text="Offre" />
                     <TableColumn fx:id="colNomEntreprise" prefWidth="75.0" text="Entreprise" />
                     <TableColumn fx:id="colNom" prefWidth="75.0" text="Nom" />
                     <TableColumn fx:id="colPrenom" prefWidth="112.0" text="Prenom" />
+                    <TableColumn fx:id="colActions" prefWidth="112.0" text="action" />
                 </columns>
+
+
                 <columnResizePolicy>
                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                 </columnResizePolicy>

@@ -17,6 +17,11 @@ public class Abonnement {
         this.etatAbo = etatAbo;
         this.dateExpiration = dateExpiration;
     }
+    public Abonnement(int idAbo,Entreprise entreprise, Journal journal){
+        this.idAbo = idAbo;
+        this.entreprise = entreprise;
+        this.journal = journal;
+    }
 
     public int getIdAbo() {
         return idAbo;
@@ -61,5 +66,9 @@ public class Abonnement {
     public  String ReturnEtatString(){
         if(etatAbo) return "activé";
         return  "desactivé";
+    }
+    @Override
+    public String toString() {
+        return this.journal.getNomJr();
     }
 }

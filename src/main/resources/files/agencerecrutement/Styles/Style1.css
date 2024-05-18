@@ -6,22 +6,26 @@
 .backgroundWhitTransparant{
        -fx-background-color: rgba(255, 255, 255, 0.7);
 }
-.table-view .column-header,
+.table-view .column-header{
+ -fx-cell-size : 50;
+   -fx-background-color:   #2D75E8;
+    -fx-padding : 5;
+}
 .table-view .column-header-background .filler {
-    -fx-cell-size : 30;
+    -fx-cell-size : 50;
     -fx-background-color:   #2D75E8;
 }
 .table-view .column-header .label{
-
    -fx-text-fill: white;
    -fx-font-weight: bold;
-   -fx-alignment: CENTER_LEFT;
+   -fx-alignment: CENTER;
 }
 .table-view .cell{
-   -fx-cell-size: 30;
-  -fx-alignment: center-left;
+   -fx-cell-size: 50;
+  -fx-alignment: center;
   -fx-text-fill: #000000;
-  -fx-alignment: CENTER_LEFT;
+  -fx-padding : 5;
+  -fx-alignment: CENTER;
 }
 
 .table-row-cell:selected {
@@ -31,6 +35,11 @@
         -fx-fill : white ;
 
  }
+/* styles.css */
+/* styles.css */
+
+/* Style pour le ContextMenu */
+
  .primary-button {
      -fx-background-color: #004BFF; /* Couleur de fond */
      -fx-text-fill: white; /* Couleur du texte */
@@ -67,6 +76,25 @@
       -fx-background-color: #B10F00; /* Couleur de fond lorsqu'appuyé */
   }
 
+
+ .rest-button {
+      -fx-background-color: #FFD700; /* Couleur de fond */
+      -fx-text-fill: white; /* Couleur du texte */
+      -fx-font-size: 14px; /* Taille de la police */
+      -fx-font-weight: 700; /* Poids de la police */
+      -fx-padding: 8px 16px; /* Rembourrage du bouton */
+      -fx-border-radius: 7px; /* Rayon du coin */
+       -fx-font-family: "New Times";
+  }
+
+  .rest-button:hover {
+      -fx-background-color: #FFC300; /* Couleur de fond au survol */
+  }
+
+  .rest-button:pressed {
+      -fx-background-color: #FFA500; /* Couleur de fond lorsqu'appuyé */
+  }
+
 .textfieldSearch {
     -fx-background-color: #f8f9fa; /* Couleur de fond */
     -fx-border-color: #ced4da; /* Couleur de bordure */
@@ -86,7 +114,7 @@
      -fx-font-size: 20px;
     -fx-font-family: "Arial";
     -fx-font-weight: bold;
-    -fx-text-fill: #333333 /* Couleur grise pour le texte */
+    -fx-text-fill: #333333 ;/* Couleur grise pour le texte */
     -fx-background-color: transparent;
 }
 .labelTitre:hover {
@@ -295,5 +323,26 @@
        -fx-cursor: hand;
        -fx-font-size: 20px;
   }
+  /* styles.css */
+  .RoleUserButton {
+     -fx-background-color: white;
+     -fx-border-color : #8D61DA;
+     -fx-border-width : 1px;
+      -fx-text-fill:  #8D61DA;
+      -fx-font-size: 12px;
+      -fx-font-weight: 700;
+      -fx-padding: 5px 5px;
+      -fx-border-radius: 10px;
+      -fx-font-family: "Verdana Bold";
+       -fx-cursor:hand;
+  }
+
+
+
+
+
+
+
+
 
 

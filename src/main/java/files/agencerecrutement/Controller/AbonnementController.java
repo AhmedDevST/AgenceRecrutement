@@ -44,51 +44,49 @@ public class AbonnementController {
     @FXML
     private TableColumn<Abonnement, Date> colDateExpiration;
 
+    @FXML
+    private  Button ajoutAbon;
 
 
     @FXML
     private TextField searchtext;
 
-    @FXML
-    public void ajouterAbonAction() {
-        try {
-            // Charger le fichier FXML de l'interface AjoutFollow
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/files/agencerecrutement/Views/AjoutAbon.fxml"));
 
-            Parent root = loader.load();
-
-            // Créer une nouvelle scène
-            Scene scene = new Scene(root);
-
-            // Créer une nouvelle fenêtre
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.setTitle("Ajouter un abonnement");
-
-            // Rendre la fenêtre modale
-            stage.initModality(Modality.APPLICATION_MODAL);
-
-            // Afficher la fenêtre
-            stage.setResizable(false);
-
-            // Wait for the new window to be closed
-            stage.setOnHiding(event -> {
-                // Reload TableView data after closing the "Ajouter Abonnement" window
-                ChargerVueTableau();
-            });
-
-            stage.showAndWait(); // Use showAndWait() to wait for the window to close before continuing
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    private  User user ;
+    private int Id ;
+    // ce variable utilliser dans le cas de user agent : si agent veux voir les abonnment d un entreprise journal
+    // Id = 0 => afficher tous abonnment de tous entreprise ou journals
+    //sinon => afficher abonnment d un entreprise ou journal
+    private boolean ByJournal ;
+    // ce variable utilliser dans le cas de user agent : si agent veux voir les abonnment  d un entreprise ou d un journal
+    // ByJournal =  true  => afficher tous abonnment de  journal
+    //sinon => afficher abonnment d un entreprise
 
 
-    @FXML
-    public void initialize() {
-        try {
-            ChargerVueTableau(); // Appelez d'abord la méthode pour charger le tableau avec les données
+    //initialiser interface en fonction de user
+    public  void initData(User user,int Id,boolean ByJournal){
+        try{
+            this.user = user ;
+            this.Id = Id;
+            this.ByJournal = ByJournal;
+            //set les droit de user
+            switch (user.getRoleUser()){
+                case  1 :
+                    //agent
+                    // agent a droit de ajouter des abonnemnt
+                    ajoutAbon.setVisible(true);
+                    // agent a droit serach par  journal et eaison social
+                    searchtext.setPromptText("Recherche par Raison socile  ou journal");
+                    break;
+                case  2 :
+                    //entreprise
+                    //demandeur n est pas droit de ajouter abonnemnt
+                    ajoutAbon.setVisible(false);
+                    // agent a droit serach par  journal
+                    searchtext.setPromptText("Recherche par nom de journal");
+                    break;
+            }
+            ChargerVueTableau();
         } catch (Exception ex) {
             showAlertWarnning(ex.getMessage());
         }
@@ -96,8 +94,25 @@ public class AbonnementController {
 
     private void ChargerDonnée() {
         try {
-            // Obtenir la liste des abonnements à partir de la base de données
-            Abonnements = AbonnementDAO.afficherAbonnements();
+            if(user.getRoleUser() == 1){
+               // si user est un agent
+                if(Id ==  0){
+                    // afficher tous  abonnements
+                    Abonnements = AbonnementDAO.afficherAbonnements();
+                }else{
+                    if(ByJournal){
+                        // afficher tous  abonnements d un journal
+                        Abonnements = AbonnementDAO.afficherAbonnementsOfJourna(Id);
+                    }else
+                    // afficher tous  abonnements d un entreprise
+                        Abonnements = AbonnementDAO.afficherAbonnementsOfEntreprise(Id);
+                }
+
+            }else{
+                //si user est un entreprise
+                // afficher tous  abonnements
+                Abonnements = AbonnementDAO.afficherAbonnementsOfEntreprise(user.getIdUser());
+            }
         } catch (Exception ex) {
             showAlertWarnning(ex.getMessage());
         }
@@ -111,8 +126,38 @@ public class AbonnementController {
         colEtatAbonnement.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().ReturnEtatString()));
         colDateExpiration.setCellValueFactory(new PropertyValueFactory<>("dateExpiration"));
 
-
         tableAbonnements.setItems(Abonnements);
+    }
+    @FXML
+    public void ajouterAbonAction() {
+        try {
+            // Charger le fichier FXML de l'interface AjoutFollow
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/files/agencerecrutement/Views/AjoutAbon.fxml"));
+            Parent parent = fxmlLoader.load();
+
+            //cree instance de controller AjoutAbonController
+            AjoutAbonController ajouterAbo = fxmlLoader.getController();
+            //passer au controller  l objet entreprise = null : possbilite de selectionner n import entreprise lors ajouter
+            ajouterAbo.initData(null);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(parent));
+            stage.setTitle("Ajouter Entreprise ");
+            stage.centerOnScreen();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setResizable(false);
+
+            // Wait for the new window to be closed
+            stage.setOnHiding(event -> {
+                // Reload TableView data after closing the "Ajouter Abonnement" window
+                ChargerVueTableau();
+            });
+
+            stage.showAndWait(); // Use showAndWait() to wait for the window to close before continuing
+
+        } catch (Exception ex) {
+            showAlertWarnning(ex.getMessage());
+        }
     }
 
     @FXML
@@ -133,13 +178,10 @@ public class AbonnementController {
                 // Si le champ de recherche est vide, rafraîchir la table avec tous les abonnements
                 tableAbonnements.setItems(Abonnements);
             }
-
         } catch (Exception ex) {
             showAlertWarnning(ex.getMessage());
         }
     }
-
-
 
     public void showAlertWarnning(String message) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -155,8 +197,6 @@ public class AbonnementController {
         alert.setContentText(message);
         alert.showAndWait();
     }
-
-
 }
 
 

@@ -42,14 +42,24 @@ public class GestionJournauxController {
     @FXML
     private TextField SearchText;
 
+    private Menu homeController;
+
+
+    public  void initData(Menu homeController){
+        try{
+            this.homeController = homeController;
+        }catch (Exception ex){
+            AlertsConfirmationsController.showAlertWarnning("probleme:"+ex.getMessage());
+        }
+    }
+
 
     @FXML
     public  void initialize(){
         try{
             loadTableView();
-            DataJournaux.scrollTo(DataJournaux.getItems().size() - 1);
         }catch (Exception ex){
-            showAlertWarnning(ex.getMessage());
+            AlertsConfirmationsController.showAlertWarnning(ex.getMessage());
         }
     }
     private void loadData(){
@@ -57,7 +67,7 @@ public class GestionJournauxController {
             //get la list des journaux  a partir de base de donnne
             journaux = JournalDAO.afficherJournaux();
         }catch (Exception ex){
-            showAlertWarnning(ex.getMessage());
+            AlertsConfirmationsController.showAlertWarnning(ex.getMessage());
         }
     }
     private void loadTableView(){
@@ -100,22 +110,6 @@ public class GestionJournauxController {
                                      OuvrirModifierJournal(journal);
                                 } );
 
-                                // icon ajouter abonnement
-                                final Image imageAjouterAbo = new Image(Objects.requireNonNull(getClass().getResource("/files/agencerecrutement/Images/addAbo.png")).toString());
-                                final ImageView AjouterAboViewImg = new ImageView(imageAjouterAbo);
-                                //style
-                                AjouterAboViewImg.setFitWidth(30);
-                                AjouterAboViewImg.setFitHeight(30);
-                                AjouterAboViewImg.setCursor(Cursor.HAND);
-                                Tooltip tooltipOffres = new Tooltip("Ajouter  Abonnement");
-                                Tooltip.install(AjouterAboViewImg,tooltipOffres);
-
-                                //event
-                                AjouterAboViewImg.setOnMouseClicked(actionEvent -> {
-                                    Journal journal = getTableView().getItems().get(getIndex());
-                                    showAlertInfo("Ajouter abonnement au journal  :"+journal.getNomJr());
-                                } );
-
                                 //icon afficher les abonnement de journal
                                 final Image imageAbo = new Image(Objects.requireNonNull(getClass().getResource("/files/agencerecrutement/Images/afficherAbo.png")).toString());
                                 final ImageView AboJrViewImg = new ImageView(imageAbo);
@@ -129,14 +123,13 @@ public class GestionJournauxController {
                                 //event
                                 AboJrViewImg.setOnMouseClicked(actionEvent -> {
                                     Journal journal = getTableView().getItems().get(getIndex());
-                                    showAlertInfo("les abonnement de journal :"+journal.getNomJr());
+                                    showAbonnement(journal);
                                 } );
 
                                 //met les trois icon dans un Hbox
-                                HBox ContentAllbtn = new HBox(editEstViewImg,AjouterAboViewImg,AboJrViewImg);
+                                HBox ContentAllbtn = new HBox(editEstViewImg,AboJrViewImg);
                                 ContentAllbtn.setStyle("-fx-alignment:center");
                                 HBox.setMargin(editEstViewImg, new Insets(2, 7, 7, 3));
-                                HBox.setMargin(AjouterAboViewImg, new Insets(2, 7, 7, 2));
                                 HBox.setMargin(AboJrViewImg, new Insets(2, 7, 7, 2));
 
                                 setGraphic(ContentAllbtn);
@@ -156,7 +149,13 @@ public class GestionJournauxController {
         DataJournaux.setItems(journaux);
     }
 
-
+    private void  showAbonnement(Journal journal){
+        try{
+            homeController.chargerGestionAbonnement(journal.getIdJr(),true); // afficher abonnment par rapport a entreprise
+        }catch (Exception ex){
+            AlertsConfirmationsController.showAlertWarnning(ex.getMessage());
+        }
+    }
 
     @FXML
     public void searchJournalEvent() {
@@ -179,7 +178,7 @@ public class GestionJournauxController {
                 loadTableView();
             }
         }catch (Exception ex){
-            showAlertWarnning(ex.getMessage());
+            AlertsConfirmationsController.showAlertWarnning(ex.getMessage());
         }
     }
 
@@ -204,7 +203,7 @@ public class GestionJournauxController {
             stage.showAndWait(); // Use showAndWait() to wait for the window to close before continuing
 
         }catch (Exception ex){
-            showAlertWarnning(ex.getMessage());
+            AlertsConfirmationsController.showAlertWarnning(ex.getMessage());
         }
     }
     //methode permet de ouvrir le fenetre de modification d un journal passer comme argument
@@ -235,21 +234,7 @@ public class GestionJournauxController {
             stage.showAndWait(); // Use showAndWait() to wait for the window to close before continuing
 
         }catch(Exception ex){
-            showAlertWarnning(ex.getMessage());
+            AlertsConfirmationsController.showAlertWarnning(ex.getMessage());
         }
-    }
-    public void showAlertWarnning(String message) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("title");
-        alert.setHeaderText("Look, an Information Dialog");
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-    public void showAlertInfo(String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("title");
-        alert.setHeaderText("Look, an Information Dialog");
-        alert.setContentText(message);
-        alert.showAndWait();
     }
 }

@@ -1,0 +1,36 @@
+.button_menu
+{
+    -fx-background-color : transparent ;
+    -fx-border-width: 8px;
+    -fx-border-radius: 5px;
+    -fx-font-family: cambria;
+    -fx-font-weight: bold;
+    -fx-font-style: italic;
+    -fx-font-size : 15;
+    -fx-text-fill : white;
+}
+.main
+{
+    -fx-background-image: url("../Images/bg.png");
+    -fx-background-repeat: repeat;
+}
+.menu
+{
+    -fx-background-color: linear-gradient(to top, #000046, #1CB5E0);
+}
+.separator
+{
+    -fx-padding : 0 0 0 0;
+}
+.hbox_class
+{
+    -fx-background-radius: 10;
+    -fx-border-radius: 7;
+    -fx-border-color: transparent;
+    -fx-cursor : hand;
+}
+
+.test : hover
+{
+-fx-background-color : red;
+}

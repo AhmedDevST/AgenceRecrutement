@@ -2,12 +2,16 @@ package files.agencerecrutement.Controller;
 
 import files.agencerecrutement.DAO.EntrepriseDAO;
 import files.agencerecrutement.Model.Entreprise;
+import files.agencerecrutement.Model.Recrutement;
+import files.agencerecrutement.Model.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -36,11 +40,20 @@ public class GestionEntrepriseController {
     @FXML
     private TableColumn<Entreprise,String> phoneEst;
     @FXML
-    private TableColumn<Entreprise,String> ActivitesEst;
-    @FXML
     private  TableColumn<Entreprise,Void> ActionsCol;
     @FXML
     private TextField SearchText;
+    private Menu homeController;
+
+
+    public  void initData(Menu homeController){
+        try{
+           this.homeController = homeController;
+        }catch (Exception ex){
+            showAlertWarnning("probleme:"+ex.getMessage());
+        }
+    }
+
 
     @FXML
     public  void initialize(){
@@ -62,94 +75,10 @@ public class GestionEntrepriseController {
 
         loadData();
         //utiliser  dans PropertyValueFactory  la meme nom de attribut au objet entreprise
-        CodeInterne.setCellValueFactory(new PropertyValueFactory<>("IdClient"));
+        CodeInterne.setCellValueFactory(new PropertyValueFactory<>("idUser"));
         RaisonSocialEst.setCellValueFactory(new PropertyValueFactory<>("raisonSocial"));
         AdresseEst.setCellValueFactory(new PropertyValueFactory<>("Adresse"));
         phoneEst.setCellValueFactory(new PropertyValueFactory<>("phone"));
-        ActivitesEst.setCellValueFactory(new PropertyValueFactory<>("Activites"));
-
-        //add cell of button edit
-        Callback<TableColumn<Entreprise,Void> , TableCell<Entreprise,Void>> cellFactory=
-                (TableColumn<Entreprise, Void> param) ->{
-                final  TableCell<Entreprise,Void> cell = new  TableCell<Entreprise,Void>(){
-                    @Override
-                    public void updateItem(Void item, boolean empty){
-                        super.updateItem(item,empty);
-                        if(empty){
-                            setGraphic(null);
-                            setText(null);
-                        }else{
-
-                            //icon modifier entreprise
-                            final Image imageEdit = new Image(Objects.requireNonNull(getClass().getResource("/files/agencerecrutement/Images/editIcon.png")).toString());
-                            final ImageView editEstViewImg = new ImageView(imageEdit);
-                            //style
-                            editEstViewImg.setFitWidth(30);
-                            editEstViewImg.setFitHeight(30);
-                            editEstViewImg.setCursor(Cursor.HAND);
-                            Tooltip tooltipEdit = new Tooltip("Modifier l entreprise");
-                            Tooltip.install(editEstViewImg,tooltipEdit);
-
-                             //event sur icon modifier
-                            editEstViewImg.setOnMouseClicked(actionEvent -> {
-                                //get entreprise selectionner dans tableview
-                                Entreprise entreprise = getTableView().getItems().get(getIndex());
-                                //ouvrir fenetre de modifier entreprise
-                                OuvrirModifierEntreprise(entreprise);
-                            } );
-
-                            // icon afficher les offres de est
-                            final Image imageOffres = new Image(Objects.requireNonNull(getClass().getResource("/files/agencerecrutement/Images/afficherOffres.png")).toString());
-                            final ImageView OffresViewImg = new ImageView(imageOffres);
-                            //style
-                            OffresViewImg.setFitWidth(30);
-                            OffresViewImg.setFitHeight(30);
-                            OffresViewImg.setCursor(Cursor.HAND);
-                            Tooltip tooltipOffres = new Tooltip("Offres d ' entrprise");
-                            Tooltip.install(OffresViewImg,tooltipOffres);
-
-                            //event
-                            OffresViewImg.setOnMouseClicked(actionEvent -> {
-                                Entreprise entreprise = getTableView().getItems().get(getIndex());
-                                showAlertInfo("les offres de entrprise :"+entreprise.getRaisonSocial());
-                            } );
-
-                            //icon afficher les abonnement de est
-                            final Image imageAbo = new Image(Objects.requireNonNull(getClass().getResource("/files/agencerecrutement/Images/afficherAbo.png")).toString());
-                            final ImageView AboEstViewImg = new ImageView(imageAbo);
-                            //style
-                            AboEstViewImg.setFitWidth(30);
-                            AboEstViewImg.setFitHeight(30);
-                            AboEstViewImg.setCursor(Cursor.HAND);
-                            Tooltip tooltipAbo = new Tooltip("Abonnement d ' entrprise");
-                            Tooltip.install(AboEstViewImg,tooltipAbo);
-
-                             //event
-                            AboEstViewImg.setOnMouseClicked(actionEvent -> {
-                                Entreprise entreprise = getTableView().getItems().get(getIndex());
-                                showAlertInfo("les abonnement de entreprise :"+entreprise.getRaisonSocial());
-                            } );
-
-                            //met les trois icon dans un Hbox
-                            HBox ContentAllbtn = new HBox(editEstViewImg,OffresViewImg,AboEstViewImg);
-                            ContentAllbtn.setStyle("-fx-alignment:center");
-                            HBox.setMargin(editEstViewImg, new Insets(2, 7, 7, 3));
-                            HBox.setMargin(OffresViewImg, new Insets(2, 7, 7, 2));
-                            HBox.setMargin(AboEstViewImg, new Insets(2, 7, 7, 2));
-
-                            setGraphic(ContentAllbtn);
-
-                            setText(null);
-
-                        }
-
-                    }
-                    //fin methode updateItem
-                };
-                //fin cell
-                    return cell;
-        };
-        ActionsCol.setCellFactory(cellFactory);
 
         DataEntreprises.setItems(entreprises);
     }
@@ -206,6 +135,113 @@ public class GestionEntrepriseController {
         }
     }
 
+    @FXML
+    private void  showModifier(){
+        try{
+            Entreprise entreprise = DataEntreprises.getSelectionModel().getSelectedItem();
+            if (entreprise != null) {
+                OuvrirModifierEntreprise(entreprise);
+            } else {
+                AlertsConfirmationsController.showAlertWarnning("Aucune ligne sélectionnée.");
+            }
+        }catch (Exception ex){
+            AlertsConfirmationsController.showAlertWarnning(ex.getMessage());
+        }
+    }
+    @FXML
+    private void  showDetails(){
+        try{
+            Entreprise entreprise = DataEntreprises.getSelectionModel().getSelectedItem();
+            if (entreprise != null) {
+                ouvrirDetails(entreprise);
+            } else {
+                AlertsConfirmationsController.showAlertWarnning("Aucune ligne sélectionnée.");
+            }
+        }catch (Exception ex){
+            showAlertWarnning(ex.getMessage());
+        }
+    }
+    @FXML
+    private void  showPrefernces(){
+        try{
+            Entreprise entreprise = DataEntreprises.getSelectionModel().getSelectedItem();
+            if (entreprise != null) {
+                ouvrirPreferences(entreprise);
+            } else {
+                AlertsConfirmationsController.showAlertWarnning("Aucune ligne sélectionnée.");
+            }
+        }catch (Exception ex){
+            showAlertWarnning(ex.getMessage());
+        }
+    }
+
+    //event sur show abonnemt permet de afficher les abonnment de ce entreprise
+    @FXML
+    private void  showAbonnement(ActionEvent event){
+        try{
+            Entreprise entreprise = DataEntreprises.getSelectionModel().getSelectedItem();
+            if (entreprise != null) {
+               homeController.chargerGestionAbonnement(entreprise.getIdUser(),false); // afficher abonnment par rapport a entreprise
+            } else {
+                AlertsConfirmationsController.showAlertWarnning("Aucune ligne sélectionnée.");
+            }
+        }catch (Exception ex){
+            showAlertWarnning(ex.getMessage());
+        }
+    }
+    //event sur show abonnemt permet de afficher les abonnment de ce entreprise
+    @FXML
+    private void  showOffres(ActionEvent event){
+        try{
+            Entreprise entreprise = DataEntreprises.getSelectionModel().getSelectedItem();
+            if (entreprise != null) {
+                homeController.chargerGestionOffre(entreprise.getIdUser()); // afficher abonnment par rapport a entreprise
+            } else {
+                AlertsConfirmationsController.showAlertWarnning("Aucune ligne sélectionnée.");
+            }
+        }catch (Exception ex){
+            showAlertWarnning(ex.getMessage());
+        }
+    }
+    //event sur show abonnemt permet de ajouter un  abonnment a ce entreprise
+    @FXML
+    private void  AjouterAbo(ActionEvent event){
+        try{
+            Entreprise entreprise = DataEntreprises.getSelectionModel().getSelectedItem();
+            if (entreprise != null) {
+                OuvrirAjouterAbonnment(entreprise);
+            } else {
+                AlertsConfirmationsController.showAlertWarnning("Aucune ligne sélectionnée.");
+            }
+        }catch (Exception ex){
+            showAlertWarnning(ex.getMessage());
+        }
+    }
+    //methode permet de ouvrir le fenetre de modification d un entreprise passer comme argument
+    private  void OuvrirAjouterAbonnment(Entreprise entreprise){
+        try{
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/files/agencerecrutement/Views/AjoutAbon.fxml"));
+            Parent parent = fxmlLoader.load();
+
+            //cree instance de controller ModifierEntrepriseController
+            AjoutAbonController ajouterAbo = fxmlLoader.getController();
+            //passer au controller  l objet entreprise
+            ajouterAbo.initData(entreprise);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(parent));
+            stage.setTitle("Ajouter Entreprise ");
+            stage.centerOnScreen();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setResizable(false);
+
+            stage.show();
+        }catch(Exception ex){
+            showAlertWarnning(ex.getMessage());
+        }
+    }
+
     //methode permet de ouvrir le fenetre de modification d un entreprise passer comme argument
     private  void OuvrirModifierEntreprise(Entreprise entreprise){
         try{
@@ -216,7 +252,7 @@ public class GestionEntrepriseController {
             //cree instance de controller ModifierEntrepriseController
             ModifierEntrepriseController modifierEntrepriseController = fxmlLoader.getController();
             //passer au controller  l objet entreprise
-            modifierEntrepriseController.initData(entreprise);
+            modifierEntrepriseController.initData(entreprise.getIdUser());
 
             Stage stage = new Stage();
             stage.setScene(new Scene(parent));
@@ -235,6 +271,45 @@ public class GestionEntrepriseController {
 
         }catch(Exception ex){
             showAlertWarnning(ex.getMessage());
+        }
+    }
+    private  void ouvrirPreferences(Entreprise entreprise){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/files/agencerecrutement/Views/AfficherPrefrencesClients.fxml"));
+            Parent parent = fxmlLoader.load();
+
+            AfficherPrefrencesClientsController afficherPrefrencesClientsController = fxmlLoader.getController();
+            //passer au controller  l objet entreprise
+            afficherPrefrencesClientsController.initData(entreprise.getIdUser(),1);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(parent));
+            stage.setTitle("Preferences Entreprise");
+            stage.centerOnScreen();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
+        }catch(Exception ex){
+             showAlertWarnning("probleme :"+ex.getMessage());
+       }
+    }
+
+    private  void ouvrirDetails(Entreprise entreprise){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/files/agencerecrutement/Views/detailsEntreprise.fxml"));
+            Parent parent = fxmlLoader.load();
+
+            DetailsEntrepriseController detailsEntrepriseController = fxmlLoader.getController();
+            //passer au controller  l objet entreprise
+            detailsEntrepriseController.initData(entreprise.getIdUser());
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(parent));
+            stage.setTitle("details Entreprise");
+            stage.centerOnScreen();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
+        }catch(Exception ex){
+            showAlertWarnning("probleme :"+ex.getMessage());
         }
     }
     public void showAlertWarnning(String message) {

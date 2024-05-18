@@ -1,0 +1,35 @@
+
+.context-menu {
+    -fx-background-color: white;
+    -fx-border-color: white;
+    -fx-border-radius: 10px; /* ou tout autre valeur de votre choix */
+    -fx-cursor:hand;
+     -fx-padding: 5px 16px;
+}
+
+.context-menu .menu-item {
+     -fx-background-color:white;
+     -fx-border-color: white;
+     -fx-padding: 5px 16px;
+     -fx-border-radius: 5px;
+}
+ .menu-item .label{
+ 	 -fx-text-fill:black;
+ 	 -fx-font-family: "Rubik";
+     -fx-font-weight: 700;
+     -fx-font-size: 16px;
+     -fx-alignment: center;
+ }
+.context-menu .menu-item:hover {
+    -fx-background-color: #eefaa0;
+    -fx-border-color: #eefaa0;
+    -fx-text-fill:white;
+}
+ .menu-item:focused {
+ 	-fx-background-color:#004BFF;
+ 	-fx-border-color: #004BFF;
+ 	 -fx-text-fill:white;
+ }
+ .context-menu .separator {
+     -fx-padding: 5px 5px; /* Ajoute de l'espace en haut et en bas du séparateur */
+ }

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="560.0" prefWidth="850.0" styleClass="backgroundImageEst" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="files.agencerecrutement.Controller.DetailsEntrepriseController">
+    <stylesheets>
+        <URL value="@../Styles/Style1.css" />
+    </stylesheets>
+    <GridPane AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0" vgap="10">
+        <rowConstraints>
+            <RowConstraints prefHeight="70" vgrow="NEVER" />
+            <RowConstraints vgrow="ALWAYS" />
+            <RowConstraints vgrow="NEVER" prefHeight="20" />
+        </rowConstraints>
+        <columnConstraints>
+            <ColumnConstraints hgrow="ALWAYS" />
+        </columnConstraints>
+        <!-- header -->
+        <BorderPane GridPane.rowIndex="0">
+            <center>
+                <Label styleClass="labelTitre" text="details Entreprise" BorderPane.alignment="CENTER">
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor></Label>
+            </center>
+        </BorderPane>
+        <!-- main -->
+        <VBox spacing="10" styleClass="backgroundWhitTransparant" GridPane.rowIndex="1">
+            <!-- raison sociale -->
+            <VBox spacing="5" GridPane.rowIndex="0">
+                <Label styleClass="labelForm" text="Raison social:" />
+                <TextField fx:id="RaisonSocialText" editable="false" prefHeight="35"  styleClass="textFieldForm" />
+            </VBox>
+
+            <!-- Adresse -->
+            <VBox spacing="5" GridPane.rowIndex="1">
+                <Label styleClass="labelForm" text="Adresse:" />
+                <TextField fx:id="AdresseTxt" prefHeight="35"  styleClass="textFieldForm" />
+            </VBox>
+
+            <!-- Phone -->
+            <VBox spacing="5" GridPane.rowIndex="2">
+                <Label styleClass="labelForm" text="Telephone:" />
+                <TextField fx:id="PhoneTxt" prefHeight="35" editable="false"  styleClass="textFieldForm" />
+            </VBox>
+            <!-- Activite  -->
+            <VBox spacing="5" GridPane.rowIndex="3">
+                <Label styleClass="labelForm" text="Activites:" />
+                <TextField fx:id="ActiviteTxt"  editable="false" prefHeight="70" styleClass="textFieldForm" />
+            </VBox>
+            <!-- information de login -->
+            <GridPane  hgap="10">
+                <rowConstraints>
+                    <RowConstraints vgrow="ALWAYS" />
+                </rowConstraints>
+                <columnConstraints>
+                    <ColumnConstraints hgrow="ALWAYS" />
+                    <ColumnConstraints hgrow="ALWAYS" />
+                </columnConstraints>
+                <!-- username -->
+                <VBox spacing="5" GridPane.columnIndex="0">
+                    <Label styleClass="labelForm" text="Username:" />
+                    <TextField fx:id="UsernameTxt" editable="false" prefHeight="35"  styleClass="textFieldForm" />
+                </VBox>
+                <!-- mot de passe -->
+                <VBox spacing="5"  GridPane.columnIndex="1">
+                    <Label styleClass="labelForm" text="mot de passe:" />
+                    <TextField fx:id="PasswordTxt" editable="false"  prefHeight="35"  styleClass="textFieldForm" />
+                </VBox>
+                <padding>
+                    <Insets top="15.0" bottom="15.0" />
+                </padding>
+            </GridPane>
+            <GridPane hgap="10.0"  >
+                <rowConstraints>
+                    <RowConstraints vgrow="ALWAYS" />
+                </rowConstraints>
+                <columnConstraints>
+                    <ColumnConstraints hgrow="ALWAYS" />
+                    <ColumnConstraints hgrow="ALWAYS" />
+                    <ColumnConstraints hgrow="ALWAYS" />
+                </columnConstraints>
+                <!-- nombre abonnemet -->
+                <VBox spacing="5" GridPane.columnIndex="0">
+                    <Label styleClass="labelForm" text="Nombre abonnement:" />
+                    <TextField fx:id="NbAbonnement"  editable="false" prefHeight="35" styleClass="textFieldForm" />
+                </VBox>
+                <!-- nombre offre -->
+                <VBox spacing="5" GridPane.columnIndex="1">
+                    <Label styleClass="labelForm" text="Nombre Offres:" />
+                    <TextField fx:id="NbOffre"  editable="false" prefHeight="35" styleClass="textFieldForm" />
+                </VBox>
+                <!-- nombre recrutement -->
+                <VBox spacing="5" GridPane.columnIndex="2">
+                    <Label styleClass="labelForm" text="Nombre Recrutements:" />
+                    <TextField fx:id="NbRecruteement" editable="false"  prefHeight="35" styleClass="textFieldForm" />
+                </VBox>
+            </GridPane>
+            <padding>
+                <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+            </padding>
+        </VBox>
+    </GridPane>
+    <padding>
+        <Insets top="20" bottom="20" left="20.0" right="20.0" />
+    </padding>
+</AnchorPane>

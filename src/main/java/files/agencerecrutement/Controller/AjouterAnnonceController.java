@@ -59,9 +59,12 @@ public class AjouterAnnonceController {
 
             //cree un list contient les journaux de categorie selectionner
             ObservableList<Journal> filteredJournaux = FXCollections.observableArrayList();
-            for(Journal journal:journaux){
-                if(journal.getCategorie().getIdcate() == selectedCategorie.getIdcate())
-                    filteredJournaux.add(journal);
+
+            if(selectedCategorie!=null){
+                for(Journal journal:journaux){
+                    if(journal.getCategorie().getIdcate() == selectedCategorie.getIdcate())
+                        filteredJournaux.add(journal);
+                }
             }
 
             //affectuer au combobox
@@ -78,18 +81,20 @@ public class AjouterAnnonceController {
         try{
             //Journal selectionner
             Journal selectedJournal= (Journal) ComboboxJournal.getValue();
-            if(selectedJournal!=null){
 
-                //cree un list contient les edition de Journal selectionner
-                ObservableList<Edition> filteredEditions = FXCollections.observableArrayList();
+            //cree un list contient les edition de Journal selectionner
+            ObservableList<Edition> filteredEditions = FXCollections.observableArrayList();
+
+            if(selectedJournal!=null){
                 for(Edition edition:editions){
                     if(edition.getJournal().getIdJr() == selectedJournal.getIdJr())
                         filteredEditions.add(edition);
                 }
-                //affectuer au combobox editions
-                ComboboxEdition.setItems(filteredEditions);
-                ComboboxEdition.getSelectionModel().selectFirst();
             }
+
+            //affectuer au combobox editions
+            ComboboxEdition.setItems(filteredEditions);
+            ComboboxEdition.getSelectionModel().selectFirst();
         }catch (Exception ex){
             showAlertWarnning(ex.getMessage());
         }

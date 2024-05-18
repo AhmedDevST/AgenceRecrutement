@@ -73,6 +73,18 @@
                     </cursor>
                     Annuler
                 </Button>
+                <!-- reset button -->
+                <Button fx:id="ResetJournalBtn" alignment="CENTER" onAction="#restJournalEvent" prefHeight="45" prefWidth="150.0" styleClass="rest-button">
+                    <graphic>
+                        <ImageView fitHeight="20" fitWidth="20">
+                            <Image url="@../Images/reseticon.png" />
+                        </ImageView>
+                    </graphic>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                    Réinitialiser
+                </Button>
                 <!-- Modifier button -->
                 <Button fx:id="SaveJournalBtn" alignment="CENTER" onAction="#ModifierJournalEvent" prefHeight="45" prefWidth="150.0" styleClass="primary-button">
                     <graphic>

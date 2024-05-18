@@ -61,4 +61,10 @@ public class Offre {
     public String toString() {
         return titre + " - "  + entreprise.getRaisonSocial();
     }
+
+    public  String  ReturnEtatString(){
+        if(etatOffre)
+            return  "Active";
+        return "deactive";
+    }
 }

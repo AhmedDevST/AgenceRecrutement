@@ -30,18 +30,13 @@
                 <RowConstraints vgrow="ALWAYS" />
             </rowConstraints>
             <!-- search edition par date  -->
-            <HBox alignment="CENTER_LEFT" spacing="10" GridPane.columnIndex="0">
+            <VBox alignment="CENTER_LEFT" spacing="5" GridPane.columnIndex="0">
+                <Label styleClass="labelForm" text="Chercher par Journal:" />
                 <ComboBox fx:id="ComboboxJournal" onAction="#filterEdition" prefHeight="30" prefWidth="350" styleClass="combo-box" />
-                <ImageView fitHeight="35" fitWidth="35" onMouseClicked="#refreshData">
-                    <Image url="@../Images/actuliserIcon.png" />
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-                </ImageView>
                 <padding>
                     <Insets bottom="7.0" left="10.0" right="10.0" top="7.0" />
                 </padding>
-            </HBox>
+            </VBox>
             <!-- nouveau  edition -->
             <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1">
                 <Button fx:id="AjouterEditionBtn" alignment="CENTER" onAction="#AjouterEditionEvent" prefHeight="45" prefWidth="200.0" styleClass="primary-button">
@@ -65,7 +60,7 @@
         </GridPane>
         <!-- main -->
         <StackPane GridPane.rowIndex="1">
-            <TableView fx:id="DataEdition" styleClass="table-view">
+            <TableView fx:id="DataEdition"  style="-fx-background-color: transparent;" styleClass="table-view">
                 <columns>
                     <TableColumn fx:id="NumeroEd" prefWidth="10" text="Numero Sequentiel  " />
                     <TableColumn fx:id="NomJournal" prefWidth="70" text="Journal  " />

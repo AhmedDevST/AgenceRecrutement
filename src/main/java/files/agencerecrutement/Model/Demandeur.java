@@ -9,8 +9,17 @@ public class Demandeur extends Client {
     private  float salaire ;
     private  String diplome ;
 
-    public Demandeur(int idClient, String adresse, String phone, String nom, String prenom, String fax, int nbAnneeEx, float salaire, String diplome) {
-        super(idClient, adresse, phone);
+    public Demandeur(int idUser, String userName, String password, String adresse, String phone, String nom, String prenom, String fax, int nbAnneeEx, float salaire, String diplome) {
+        super(idUser, userName, password, adresse, phone);
+        this.nom = nom;
+        this.prenom = prenom;
+        this.fax = fax;
+        this.nbAnneeEx = nbAnneeEx;
+        this.salaire = salaire;
+        this.diplome = diplome;
+    }
+    public Demandeur(int idUser, String adresse, String phone, String nom, String prenom, String fax, int nbAnneeEx, float salaire, String diplome) {
+        super(idUser, adresse, phone);
         this.nom = nom;
         this.prenom = prenom;
         this.fax = fax;
@@ -19,11 +28,12 @@ public class Demandeur extends Client {
         this.diplome = diplome;
     }
 
-    public Demandeur(int idClient,String nom, String prenom){
-        super(idClient);
+    public Demandeur(int idUser,String nom, String prenom){
+        super(idUser);
         this.nom = nom;
         this.prenom = prenom;
     }
+
 
     public String getNom() {
         return nom;

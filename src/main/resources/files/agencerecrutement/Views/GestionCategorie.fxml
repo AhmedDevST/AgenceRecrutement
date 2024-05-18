@@ -64,7 +64,7 @@
         </GridPane>
         <!-- main -->
         <StackPane GridPane.rowIndex="1">
-            <TableView fx:id="DataCategories" styleClass="table-view">
+            <TableView fx:id="DataCategories" style="-fx-background-color: transparent;" styleClass="table-view">
                 <columns>
                     <TableColumn fx:id="NumeroCat" prefWidth="10" text="Numero"  />
                     <TableColumn fx:id="LibelleCat" prefWidth="70" text="Libelle " />

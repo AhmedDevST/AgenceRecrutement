@@ -2,36 +2,36 @@ package files.agencerecrutement.Model;
 
 import java.util.ArrayList;
 
-public class Client {
-    protected  int IdClient ;
+public class Client extends  User {
     protected String Adresse ;
     protected  String phone ;
     protected ArrayList<PreferencesClient> preferencesClients;
 
-    public Client(int idClient, String adresse, String phone) {
-        IdClient = idClient;
+    public Client(int idUser, String adresse, String phone) {
+        super(idUser);
         Adresse = adresse;
         this.phone = phone;
     }
 
-    public Client(int idClient) {
-        IdClient = idClient;
+    public Client(int idUser, String userName, String password, int roleUser, String adresse, String phone) {
+        super(idUser, userName, password, roleUser);
+        Adresse = adresse;
+        this.phone = phone;
     }
-
-    public int getIdClient() {
-        return IdClient;
+    public Client(int idUser, String userName, String password, String adresse, String phone) {
+        super(idUser, userName, password);
+        Adresse = adresse;
+        this.phone = phone;
     }
-
+    public Client(int idUser) {
+        super(idUser);
+    }
     public String getAdresse() {
         return Adresse;
     }
 
     public String getPhone() {
         return phone;
-    }
-
-    public void setIdClient(int idClient) {
-        IdClient = idClient;
     }
 
     public void setAdresse(String adresse) {

@@ -8,14 +8,20 @@ public class Entreprise extends  Client{
     private ArrayList<Offre> Offres;
 
 
-    public Entreprise(int idClient, String adresse, String phone, String raisonSocial, String activites) {
-        super(idClient, adresse, phone);
+    public Entreprise(int idUser, String adresse, String phone, String raisonSocial, String activites) {
+        super(idUser, adresse, phone);
         this.raisonSocial = raisonSocial;
         Activites = activites;
     }
 
-    public Entreprise(int idClient, String raisonSocial) {
-        super(idClient);
+    public Entreprise(int idUser, String userName, String password, String adresse, String phone, String raisonSocial, String activites) {
+        super(idUser, userName, password, adresse, phone);
+        this.raisonSocial = raisonSocial;
+        Activites = activites;
+    }
+
+    public Entreprise(int idUser, String raisonSocial) {
+        super(idUser);
         this.raisonSocial = raisonSocial;
     }
 

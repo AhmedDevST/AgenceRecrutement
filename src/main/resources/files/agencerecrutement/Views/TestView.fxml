@@ -133,7 +133,8 @@
                <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
             </VBox.margin>
          </Button>
-         <Button alignment="BASELINE_LEFT" graphicTextGap="30.0" prefHeight="42.0" prefWidth="259.0" text="Sign Out" textFill="#e7e5e5">
+         <!-- abonnement -->
+         <Button alignment="BASELINE_LEFT" graphicTextGap="30.0" onAction="#showAbo" prefHeight="42.0" prefWidth="259.0" text="Abonnement" textFill="red">
             <graphic>
                <ImageView>
                   <Image url="@../Images/AddIcon.png" />
@@ -149,6 +150,41 @@
                <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
             </VBox.margin>
          </Button>
+         <!-- postulation -->
+         <Button alignment="BASELINE_LEFT" graphicTextGap="30.0" onAction="#showPostulation" prefHeight="42.0" prefWidth="259.0" text="postulation" textFill="red">
+            <graphic>
+               <ImageView>
+                  <Image url="@../Images/AddIcon.png" />
+               </ImageView>
+            </graphic>
+            <font>
+               <Font name="Times New Roman Bold" size="14.0" />
+            </font>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+            <VBox.margin>
+               <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+            </VBox.margin>
+         </Button>
+         <!-- recrutement -->
+         <Button alignment="BASELINE_LEFT" graphicTextGap="30.0" onAction="#showRecrutement" prefHeight="42.0" prefWidth="259.0" text="recrutement" textFill="red">
+            <graphic>
+               <ImageView>
+                  <Image url="@../Images/AddIcon.png" />
+               </ImageView>
+            </graphic>
+            <font>
+               <Font name="Times New Roman Bold" size="14.0" />
+            </font>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+            <VBox.margin>
+               <Insets bottom="7.0" left="7.0" right="7.0" top="7.0" />
+            </VBox.margin>
+         </Button>
+
       </VBox>
       <!-- main -->
       <StackPane fx:id="Content" prefHeight="200.0" style="-fx-background-color: #FFF;" GridPane.columnIndex="1">

@@ -8,14 +8,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -94,7 +98,7 @@ public class PublierOffresController {
                                 OffresViewImg.setOnMouseClicked(actionEvent -> {
                                     //get offre selectionner dans tableview
                                     Offre offre = getTableView().getItems().get(getIndex());
-                                    showAlertInfo("details offre");
+                                   OuvrirAfficherOffre(offre);
                                 } );
 
                                 //met chcbox icon dans un Hbox
@@ -144,6 +148,29 @@ public class PublierOffresController {
             }
         }catch (Exception ex){
             showAlertWarnning(ex.getMessage());
+        }
+    }
+    public void OuvrirAfficherOffre(Offre offre){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/files/agencerecrutement/Views/DetailsOffre.fxml"));
+            Parent parent = fxmlLoader.load();
+
+            //cree instance de controller ModifierEntrepriseController
+            DetailsOffreController detailsOffreController = fxmlLoader.getController();
+            //passer au controller  l objet entreprise
+
+            detailsOffreController.initData(offre.getIdOffre());
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(parent));
+            stage.setTitle("Détails Offre ");
+            stage.centerOnScreen();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
+
+        }catch (Exception e)
+        {
+            AlertsConfirmationsController.showAlertWarnning(e.getMessage());
         }
     }
     private  boolean showConfirmationDialog(String title , String Header , String Content){
