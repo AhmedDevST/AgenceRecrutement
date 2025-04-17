@@ -38,8 +38,22 @@ The project follows a modular structure:
    ```
 5. Run the application by executing the `MainApp.java` file.
 
-## Libraries Used
-- MySQL Connector (v8.2.0): For database connectivity.
+## Tools and Technologies
+
+The project leverages the following tools and technologies:.
+
+### 🛠️ Technologies & Languages
+![Java](https://img.shields.io/badge/Java-007396?style=flat&logo=java&logoColor=white)  
+![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=mysql&logoColor=white)  
+![FXML](https://img.shields.io/badge/FXML-FF2D20?style=flat&logo=fxml&logoColor=white)  
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)  
+
+### 🔧 Tools
+![Apache Maven](https://img.shields.io/badge/Apache_Maven-C71A36?style=flat&logo=apache-maven&logoColor=white)  
+![IntelliJ IDEA](https://img.shields.io/badge/IntelliJ_IDEA-000000?style=flat&logo=intellij-idea&logoColor=white)  
+![Eclipse](https://img.shields.io/badge/Eclipse-2C2255?style=flat&logo=eclipse&logoColor=white)  
+![Git](https://img.shields.io/badge/Git-F05032?style=flat&logo=git&logoColor=white)  
+![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white)
 
 ## Screenshots
 
