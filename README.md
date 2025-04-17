@@ -40,3 +40,20 @@ The project follows a modular structure:
 
 ## Libraries Used
 - MySQL Connector (v8.2.0): For database connectivity.
+
+## Screenshots
+
+Here are some screenshots of the application:
+
+### Login Page
+![Login Page](target/classes/files/agencerecrutement/Images/Login.png)
+
+### Job Offers
+![Job Offers](target/classes/files/agencerecrutement/Images/annoncesDem.png)
+
+### Company Subscription Management
+![Company Subscription Management](target/classes/files/agencerecrutement/Images/gestionAbo_entreprise.png)
+
+
+### Recruit Job Seeker
+![Recruit Job Seeker](target/classes/files/agencerecrutement/Images/recruterDemandeur.png)
