@@ -46,14 +46,14 @@ The project follows a modular structure:
 Here are some screenshots of the application:
 
 ### Login Page
-![Login Page](target/classes/files/agencerecrutement/Images/Login.png)
+![Login Page](lib/screen/Login.png)
 
 ### Job Offers
-![Job Offers](target/classes/files/agencerecrutement/Images/annoncesDem.png)
+![Job Offers](lib/screen/annoncesDem.png)
 
 ### Company Subscription Management
-![Company Subscription Management](target/classes/files/agencerecrutement/Images/gestionAbo_entreprise.png)
+![Company Subscription Management](lib/screen/gestionAbo_entreprise.png)
 
 
 ### Recruit Job Seeker
-![Recruit Job Seeker](target/classes/files/agencerecrutement/Images/recruterDemandeur.png)
+![Recruit Job Seeker](lib/screen/recruterDemandeur.png)
