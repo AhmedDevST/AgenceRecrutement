@@ -60,7 +60,7 @@ The project leverages the following tools and technologies:.
 Here are some screenshots of the application:
 
 ### Login Page
-![Login Page](lib/screen/Login.png)
+![Login Page](lib/screen/login.png)
 
 ### Job Offers
 ![Job Offers](lib/screen/annoncesDem.png)
